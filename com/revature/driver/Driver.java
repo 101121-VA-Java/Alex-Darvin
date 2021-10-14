@@ -1,18 +1,15 @@
-import com.revature.models.HumAthletean;
+import com.revature.models.Athlete;
 
 public class Driver{
-//add attributes / parameters for the objects that will be created
 
-    public String name;
-    public String sport;
-    public int age;
-    public boolean active;
+    public static void main(String[] args){
 
-    public Athlete(){
+        Athlete leBronJames = new Athlete("LeBron James", "Basketball", 36, true);
 
+        Athlete
     }
 
-    public String championships(String title){
-        return ""
+    public String championships(int championships){
+        return name "has won " + championships "championships"
     }
 }
