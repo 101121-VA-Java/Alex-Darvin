@@ -6,7 +6,7 @@ public class Driver{
 
         Athlete leBronJames = new Athlete("LeBron James", "Basketball", 36, true);
 
-        Athlete
+        System.out.println(leBronJames.sport)
     }
 
     public String championships(int championships){

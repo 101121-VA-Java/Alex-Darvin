@@ -13,6 +13,6 @@ public class Athlete{
     }
 
     public String championships(int championships){
-        return name "has won " + championships "championships"
+        return name "has won " + championships "championships";
     }
 }
