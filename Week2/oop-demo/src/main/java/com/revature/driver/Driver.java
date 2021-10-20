@@ -57,7 +57,12 @@ public class Driver {
 		
 		System.out.println(it);
 		
-		BoringTask bt = new BoringTask("":, LocalDate.procrastinate());
+		// assign variable BoringTask with parameters
+		BoringTask bt = new BoringTask("Go to the gym", LocalDate.now());
+		// use procrastinate methods
+		bt.procrastinate();
+		
+		System.out.println(bt);
 	}
 
 }
