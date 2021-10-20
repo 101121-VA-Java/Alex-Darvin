@@ -1,0 +1,19 @@
+Go line by line, and explain what's happening in each line.
+
+int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
+
+String result;  // variable result is declared as return type String
+
+// using a control flow statement to determine what result will be printed when running the app
+if (score == 80) {
+	result = "You passed!";
+	//  assign result a value of "You passed!" only when score is 80
+} else if (score > 80) {
+	result = "You did great!";
+	// if the score is above 80, assign result a value of "You did great!"
+} else {
+	result = "You did not pass. Try again!";
+	// if neither of the above conditions are met, assign result a value of "You did not pass. Try again!"
+}
+
+System.out.println(result);
