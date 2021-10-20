@@ -74,4 +74,9 @@ public class Task {
 	public String toString() {
 		return "Task [name=" + name + ", dueDate=" + dueDate + "]";
 	}
+
+	public Task getATask() {
+		// TODO Auto-generated method stub
+		return new Task();
+	}
 }
