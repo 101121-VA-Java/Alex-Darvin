@@ -6,7 +6,7 @@ public static void main(String[] args) {
     // variable myType has a value of the index 2 from the array foodTypes ("dinner")
 
 	String[] foodsOfMyType = getFoodsByType(myType);
-    // variable foodsOfMyType
+    // variable foodsOfMyType has a value of the return value of the method getFoodsByType with an argument of myType
 	
 	for (String food : foodsOfMyType) {
         // enhanced for loop = for each type of food that is included in the array foodsOfMyType, print that food
