@@ -3,13 +3,13 @@ public static void main(String[] args) {
 	String[] foodTypes = getFoodTypes();
     // declare foodTypes as a reference variable type String assigned a value that is the returned value of the method getFoodTypes
 	String myType = foodTypes[2];
-    // variable myType has a value of the index 2 from the array foodTypes ("dinner")
+    // variable myType has a value of the index 2 from the array foodTypes ("dinner"). ("stir fry")
 
 	String[] foodsOfMyType = getFoodsByType(myType);
     // variable foodsOfMyType has a value of the return value of the method getFoodsByType with an argument of myType
 	
 	for (String food : foodsOfMyType) {
-        // enhanced for loop = for each type of food that is included in the array foodsOfMyType, print that food
+        // enhanced for loop = for each type of food that is included in the array foodsOfMyType ("dinner"), print that food ("curry", "stir fry", "burger")
 		System.out.println(food);
         // print each food that meets the condition of the for loop
 	}
@@ -57,7 +57,7 @@ public static String[] getFoodsByType(String type) {
 		foods[0] = "chips";
 		foods[1] = "apple";
 		foods[2] = "samosa";
-        // if the food type is "snack", create an array with 3 Strings assigned values of "chips" "apple" and "samosa"
+        // if the food type is "snack", instantiates the create an array with 3 Strings assigned values of "chips" "apple" and "samosa"
 		break;
 	default:
 		// add your own
