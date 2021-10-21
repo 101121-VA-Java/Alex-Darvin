@@ -22,6 +22,22 @@ public class ImportantTask extends Task{
 		 */
 		this.setDueDate(this.getDueDate().minusDays(1));
 	}
+	
+	public void completedTask(String task1) {
+		
+	}
+//	
+//	public void completedTask() {
+//		
+//	}
+//
+//	public void completedTask() {
+//	
+//	}
+//
+//	public void completedTask() {
+//	
+//	}
 
 
 }
