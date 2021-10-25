@@ -1,4 +1,4 @@
-package project_0_test.com.revature.models;
+package com.revature.models;
 
 public class Book{
     // add parameters for the items to be sold
