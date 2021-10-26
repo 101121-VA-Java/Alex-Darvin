@@ -6,20 +6,21 @@ public class Customer {
 	private String name;
 	private String username;
 	private String password;
-	private String card_number;
-	private Role role; // using an enum to store a specific value
+	private String email;
+	private int card_number;
+	
 	
 	public Customer() {
 		super();
 	}
 
-	public Customer(int id, String name, String username, String password, Role role, String card_number) {
+	public Customer(int id, String name, String username, String password, String email, int card_number) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.role = role;
+		this.email = email;
 		this.card_number = card_number;
 	}
 
@@ -54,27 +55,26 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Role getRole() {
-		return role;
+	
+	public String getEmail() {
+		return email;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getCardNumber() {
+	public int getCardNumber() {
 		return card_number;
 	}
 
-	public void setCardNumber(String card_number) {
+	public void setCardNumber(int card_number) {
 		this.card_number = card_number;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", role="
-				+ role + ", Credit Card Number =" + card_number + "]";
+		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", Credit Card Number =" + card_number + "]";
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class Customer {
 		result = prime * result + ((card_number == null) ? 0 : card_number.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((card_number == null) ? 0 : card_number.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -104,7 +104,7 @@ public class Customer {
 		if (card_number == null) {
 			if (other.card_number != null)
 				return false;
-		} else if (!card_number.equals(other.card_number))
+		} else if (card_number != other.card_number)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -116,14 +116,17 @@ public class Customer {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role != other.role)
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 	}
 	
 }
