@@ -6,21 +6,17 @@ public class Employee {
 	private String name;
 	private String username;
 	private String password;
-	private Role role; // using an enum to store a specific value
-	private Employee manager;
 	
 	public Employee() {
 		super();
 	}
 
-	public Employee(int id, String name, String username, String password, Role role, Employee manager) {
+	public Employee(int id, String name, String username, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.role = role;
-		this.manager = manager;
 	}
 
 	public int getId() {
@@ -55,26 +51,9 @@ public class Employee {
 		this.password = password;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public Employee getManager() {
-		return manager;
-	}
-
-	public void setManager(Employee manager) {
-		this.manager = manager;
-	}
-
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", role="
-				+ role + ", manager=" + manager + "]";
+		return "Employee [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + "]";
 	}
 
 	@Override
@@ -82,10 +61,8 @@ public class Employee {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((manager == null) ? 0 : manager.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -101,11 +78,6 @@ public class Employee {
 		Employee other = (Employee) obj;
 		if (id != other.id)
 			return false;
-		if (manager == null) {
-			if (other.manager != null)
-				return false;
-		} else if (!manager.equals(other.manager))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -115,8 +87,6 @@ public class Employee {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
-			return false;
-		if (role != other.role)
 			return false;
 		if (username == null) {
 			if (other.username != null)

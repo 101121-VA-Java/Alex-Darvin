@@ -10,15 +10,15 @@ public class EmployeeController {
 
 	private EmployeeService us = new EmployeeService();
 	
-	public void searchForEmployee() {
-		// scanner getting user input
-		try {
-			Employee e = us.getEmployeeById(0);
-		} catch (UserNotFoundException e) {
-			System.out.println("User doesn't exist.");
-			e.printStackTrace();
-		} 
-	}
+//	public void searchForEmployee() {
+//		// scanner getting user input
+//		try {
+//			Employee e = us.getEmployeeById(0);
+//		} catch (UserNotFoundException e) {
+//			System.out.println("User doesn't exist.");
+//			e.printStackTrace();
+//		} 
+//	}
 	
 	public void registerEmployee(Scanner scan) {
 		System.out.println("Please enter a username:");
@@ -28,7 +28,7 @@ public class EmployeeController {
 		System.out.println("Please enter your name: ");
 		String name = scan.nextLine();
 		
-		Employee newEmployee = new Employee(name, username, password);
+		Employee newEmployee = new Employee(0, name, username, password);
 		
 		// TODO: check whether an employee created or not (if the method works)
 		us.addEmployee(newEmployee);
