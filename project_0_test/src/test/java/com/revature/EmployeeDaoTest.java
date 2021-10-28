@@ -15,25 +15,25 @@ public class EmployeeDaoTest {
 	
 	@BeforeEach
 	public void setup() {
-		Employee[] employees = {new Employee(0, "Alex", "Al", "AlPass", BASIC_USER, null)}; 
+		Employee[] employees = {new Employee(0, "Alex", "Al", "AlPass")}; 
 
 		ed = new EmployeeArray(employees);
 	}
 	
 	@Test
 	public void getAllEmployees(){
-		Employee[] expected = {new Employee(0, "Alex", "Al", "AlPass", BASIC_USER, null)};
+		Employee[] expected = {new Employee(0, "Alex", "Al", "AlPass")};
 		Employee[] actual = ed.getAllEmployees();
 		assertArrayEquals(expected, actual);
 	}
 	
 	@Test
 	public void addEmployeeValid() {
-		Employee[] expected = {new Employee(0, "Alex", "Al", "AlPass", BASIC_USER, null), 
-								new Employee(1, "Al", "A", "Pass", BASIC_USER, null) };
+		Employee[] expected = {new Employee(0, "Alex", "Al", "AlPass"), 
+								new Employee(1, "Al", "A", "Pass") };
 		
 		// Adding an employee
-		ed.addEmployee(new Employee(1, "Al", "A", "Pass", BASIC_USER, null));
+		ed.addEmployee(new Employee(1, "Al", "A", "Pass"));
 		
 		assertArrayEquals(expected, ed.getAllEmployees());
 	}

@@ -13,4 +13,11 @@ public class EmployeeService {
 		 */
 		return ed.addEmployee(e);
 	}
+	
+	public Employee getEmployeeById(int id) {
+		/*
+		 * add business logic here to manipulate e before storage
+		 */
+		return ed.getEmployeeById(id);
+	}
 }
