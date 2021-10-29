@@ -7,21 +7,21 @@ public class Customer {
 	private String username;
 	private String password;
 	private String email;
-	private int card_number;
+	private int cardNumber;
 	
 	
 	public Customer() {
 		super();
 	}
 
-	public Customer(int id, String name, String username, String password, String email, int card_number) {
+	public Customer(int id, String name, String username, String password, String email, int cardNumber) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.card_number = card_number;
+		this.cardNumber = cardNumber;
 	}
 
 	public int getId() {
@@ -65,16 +65,16 @@ public class Customer {
 	}
 
 	public int getCardNumber() {
-		return card_number;
+		return cardNumber;
 	}
 
-	public void setCardNumber(int card_number) {
-		this.card_number = card_number;
+	public void setCardNumber(int cardNumber) {
+		this.cardNumber = cardNumber;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", Credit Card Number =" + card_number + "]";
+		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", Credit Card Number =" + cardNumber + "]";
 	}
 
 	@Override
@@ -82,10 +82,10 @@ public class Customer {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((card_number == null) ? 0 : card_number.hashCode());
+//		result = prime * result + ((card_number = null) ? 0 : card_number.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((card_number == null) ? 0 : card_number.hashCode());
+//		result = prime * result + ((card_number = null) ? 0 : card_number.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -101,11 +101,11 @@ public class Customer {
 		Customer other = (Customer) obj;
 		if (id != other.id)
 			return false;
-		if (card_number == null) {
-			if (other.card_number != null)
-				return false;
-		} else if (card_number != other.card_number)
-			return false;
+//		if (card_number == null) {
+//			if (other.card_number != null)
+//				return false;
+//		} else if (card_number != other.card_number)
+//			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -122,11 +122,6 @@ public class Customer {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
 	}
 	
 }
