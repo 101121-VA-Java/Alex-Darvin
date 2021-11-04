@@ -1,4 +1,4 @@
-package com.revature.controller;
+package com.revature.controllers;
 
 import java.util.Scanner;
 
@@ -31,9 +31,6 @@ public class UserController {
 			System.out.println("Username is already taken. Please try again!");
 		}
 		
-	//	us.addUser(newUser);
-
-	// 	System.out.println("All set. User has been added.");
 	}
 
 	public void login(Scanner login) {
