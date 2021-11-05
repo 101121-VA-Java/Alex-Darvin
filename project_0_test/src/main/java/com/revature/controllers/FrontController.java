@@ -4,12 +4,11 @@ import java.util.Scanner;
 
 public class FrontController {
 	private Scanner sc; 
-	private EmployeeController ec;
-	private CustomerController cc;
+	private UserController uc
 	
 	public FrontController() {
 		sc = new Scanner(System.in);
-		ec = new EmployeeController();
+		uc = new UserController();
 	}
 	
 	public void run() {
@@ -26,13 +25,13 @@ public class FrontController {
 			
 			switch(choice) {
 			case "1":
-				ec.registerEmployee(sc);
+				uc.registerEmployee(sc);
 				// TODO: if an employee is not registered, display a different message
 				break;
 			case "2":
 				break;
 			case "3":
-				cc.registerCustomer(sc);
+				uc.registerCustomer(sc);
 				break;
 			case "4":
 				run = false;

@@ -27,7 +27,7 @@ public class UserController {
 		try {
 			newUser = us.addUser(newUser);
 			System.out.println(newUser.getName());
-		} catch  (UsernameAlreadyActiveException e) {
+		} catch  (UsernameTakenException e) {
 			System.out.println("Username is already taken. Please try again!");
 		}
 		

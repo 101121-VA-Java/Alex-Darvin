@@ -19,11 +19,11 @@ public class UserService extends UserList {
 	 * 
 	 */
 
-	public User addUser(User u) throws UsernameAlreadyActiveException {
+	public User addUser(User u) throws UsernameTakenException {
 
 		User newUser = this.getByUsername(u.getUsername());
 		if (newUser != null) {
-			throw new UsernameAlreadyActiveException();
+			throw new UsernameTakenException();
 		}
 
 		u.setRole(Role.CUSTOMER);
@@ -37,6 +37,11 @@ public class UserService extends UserList {
 		if(u == null || !u.getPassword().equals(password)){
 			throw new LoginException();
 			} return u;
+	}
+
+	private User getByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
