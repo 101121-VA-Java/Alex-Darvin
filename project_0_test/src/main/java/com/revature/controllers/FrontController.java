@@ -1,10 +1,15 @@
 package com.revature.controllers;
 
 import java.util.Scanner;
+import com.revature.controllers.EmployeeController;
+import com.revature.controllers.CustomerController;
 
 public class FrontController {
+
 	private Scanner sc; 
-	private UserController uc
+	private UserController uc;
+	private EmployeeController ec;
+	private CustomerController cc;
 	
 	public FrontController() {
 		sc = new Scanner(System.in);
