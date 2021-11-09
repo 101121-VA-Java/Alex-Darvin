@@ -26,11 +26,11 @@ public class Item {
 		this.available = available;
 	}
 
-	public Item(String name, double price, String offerStatus, int available, int customerID) {
+	public Item(String name, double price, String offersMade, int available, int customerID) {
 		super();
 		this.name = name;
 		this.price = price;
-		this.offersMade = offerStatus;
+		this.offersMade = offersMade;
 		this.available = available;
 		this.customerID = customerID;
 	}
@@ -43,11 +43,11 @@ public class Item {
 		this.customerID = customerID;
 	}
 	
-	public int getavailable() {
+	public int getAvailable() {
 		return available;
 	}
 
-	public void setavailable(int available) {
+	public void setAvailable(int available) {
 		this.available = available;
 	}
 
@@ -67,11 +67,11 @@ public class Item {
 		this.price = price;
 	}
 
-	public String getOfferStatus() {
+	public String getOffersMade() {
 		return offersMade;
 	}
 
-	public void setOfferStatus(String offersMade) {
+	public void setOffersMade(String offersMade) {
 		this.offersMade = offersMade;
 	}
 

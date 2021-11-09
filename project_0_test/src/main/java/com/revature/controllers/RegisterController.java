@@ -20,9 +20,10 @@ public class RegisterController {
 	public static void register(Scanner sc) {
 		boolean flag = true;
 		while(flag) {
-			System.out.println("1: Register as a new Customer"
-					+ "\n2: Register as a new Employee"
-					+ "\n3: Return to the Main Menu");
+			System.out.println("1: Register as a new Customer");
+			System.out.println("2: Register as a new Employe");
+			System.out.println("3: Return to the Main Menu");
+		
 			
 			// take in user input
 			String input = sc.nextLine();
@@ -47,7 +48,7 @@ public class RegisterController {
 				flag = false;
 				break;
 			default:
-				System.out.println("Invalid input, please select an option 1-3.");
+				System.out.println("Invalid input, please select a valid option.");
 				System.out.println();
 			}
 		}
@@ -102,7 +103,7 @@ public class RegisterController {
 			newEmployee = es.addEmployee(newEmployee);
 			System.out.println("Welcome " + newEmployee.getFirstName() + "! Registration Successful");
 		} catch (EmailTakenException e) {
-			System.out.println("An Account with this email already exists. \n Please try to register again or login to your account.");
+			System.out.println("An Account with this email already exists. Please try to register again or login to your account.");
 		}
 		
 		System.out.println("Returning to the main menu...");
