@@ -1,6 +1,6 @@
 package com.revature.driver;
 
-import com.revature.controllers.FrontController;
+import com.revature.controllers.*;
 
 public class Driver {
 

@@ -50,5 +50,11 @@ public class CustomerList implements CustomerDao {
 		customers.remove(u);
 		return u;
 	}
+
+	@Override
+	public Customer getByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

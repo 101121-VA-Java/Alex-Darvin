@@ -16,10 +16,10 @@ public class EmployeeList implements EmployeeDao {
 	}
 	
 	@Override
-	public Employee add(Employee t) {
-		t.setEmployeeID(employees.size());
-		employees.add(t);
-		return t;
+	public Employee add(Employee u) {
+		u.setEmployeeID(employees.size());
+		employees.add(u);
+		return u;
 	}
 	
 	@Override

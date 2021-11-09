@@ -2,36 +2,36 @@ package com.revature.models;
 
 public class Item {
 
-	private String itemName;
+	private String name;
 	private double price;
 	private String offerStatus;
-	private int inStock;
+	private int available;
 	private int customerID;
 	
 	public Item() {
 		super();
 	}
 	
-	public Item(String itemName, int inStock) {
+	public Item(String name, int available) {
 		super();
-		this.itemName = itemName;
-		this.inStock = inStock;
+		this.name = name;
+		this.available = available;
 	}
 	
-	public Item(String itemName, double price, String offerStatus, int inStock) {
+	public Item(String name, double price, String offerStatus, int available) {
 		super();
-		this.itemName = itemName;
+		this.name = name;
 		this.price = price;
 		this.offerStatus = offerStatus;
-		this.inStock = inStock;
+		this.available = available;
 	}
 
-	public Item(String itemName, double price, String offerStatus, int inStock, int customerID) {
+	public Item(String name, double price, String offerStatus, int available, int customerID) {
 		super();
-		this.itemName = itemName;
+		this.name = name;
 		this.price = price;
 		this.offerStatus = offerStatus;
-		this.inStock = inStock;
+		this.available = available;
 		this.customerID = customerID;
 	}
 	
@@ -43,20 +43,20 @@ public class Item {
 		this.customerID = customerID;
 	}
 	
-	public int getInStock() {
-		return inStock;
+	public int getavailable() {
+		return available;
 	}
 
-	public void setInStock(int inStock) {
-		this.inStock = inStock;
+	public void setavailable(int available) {
+		this.available = available;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public String getname() {
+		return name;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setname(String name) {
+		this.name = name;
 	}
 
 	public double getPrice() {
