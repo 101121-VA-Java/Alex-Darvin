@@ -8,7 +8,7 @@ public class FrontController {
 
 	public static Scanner sc = new Scanner(System.in);
 	
-	public void run() {
+	public static void run() {
 		boolean run = true;
 		
 		while(run) {
@@ -31,7 +31,7 @@ public class FrontController {
 				// TODO: if an employee is not registered, display a different message
 				break;
 			case "2":
-				LoginController.loginUser(sc);
+//				LoginController.loginUser(sc);
 				break;
 			case "3":
 				run = false;

@@ -4,7 +4,7 @@ public class Item {
 
 	private String name;
 	private double price;
-	private String offerStatus;
+	private String offersMade;
 	private int available;
 	private int customerID;
 	
@@ -18,11 +18,11 @@ public class Item {
 		this.available = available;
 	}
 	
-	public Item(String name, double price, String offerStatus, int available) {
+	public Item(String name, double price, String offersMade, int available) {
 		super();
 		this.name = name;
 		this.price = price;
-		this.offerStatus = offerStatus;
+		this.offersMade = offersMade;
 		this.available = available;
 	}
 
@@ -30,7 +30,7 @@ public class Item {
 		super();
 		this.name = name;
 		this.price = price;
-		this.offerStatus = offerStatus;
+		this.offersMade = offerStatus;
 		this.available = available;
 		this.customerID = customerID;
 	}
@@ -68,11 +68,11 @@ public class Item {
 	}
 
 	public String getOfferStatus() {
-		return offerStatus;
+		return offersMade;
 	}
 
-	public void setOfferStatus(String offerStatus) {
-		this.offerStatus = offerStatus;
+	public void setOfferStatus(String offersMade) {
+		this.offersMade = offersMade;
 	}
 
 	
