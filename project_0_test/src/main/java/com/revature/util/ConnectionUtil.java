@@ -16,10 +16,12 @@ public class ConnectionUtil {
 		prop.load(loader.getResourceAsStream("prop.properties"));
 		
 		String url = prop.getProperty("url");
+		
 		String username = prop.getProperty("username");
 		String password = prop.getProperty("password");
 		
 		if (connect == null || connect.isClosed()) {
+//			System.out.println(url);
 			connect = DriverManager.getConnection(url, username, password);
 		}
 		

@@ -28,7 +28,7 @@ public class EmployeePostgres implements EmployeeDao {
 				int e_id = rs.getInt("e_id");
 				String e_first_name = rs.getString("e_first_name");
 				String e_last_name = rs.getString("e_first_name");
-				String e_email = rs.getString("e_username");
+				String e_email = rs.getString("e_email");
 				String e_password = rs.getString("e_password");
 
 

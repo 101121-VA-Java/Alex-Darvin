@@ -2,21 +2,16 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-// Import Customer Service and Model
 import com.revature.models.Customer;
-//import com.revature.services.CustomerService;
-
-// Import Employee Service and Model
+import com.revature.services.CustomerServices;
 import com.revature.models.Employee;
-//import com.revature.services.EmployeeService;
-
-// Import Exception used for both Customer and Employee
+import com.revature.services.EmployeeServices;
 import com.revature.exceptions.EmailTakenException;
 
 public class RegisterController {
 	
-	private static CustomerService cs = new CustomerService();
-
+	private static CustomerServices cs = new CustomerServices();
+	
 	public static void register(Scanner sc) {
 		boolean flag = true;
 		while(flag) {
@@ -69,11 +64,9 @@ public class RegisterController {
 		System.out.println("Returning to the main menu...");
 		FrontController.run();
 		
-		
-		
 	}
 
-	private static EmployeeService es = new EmployeeService();
+	private static EmployeeServices es = new EmployeeServices();
 	
 	public static void registerEmployee(Scanner sc) {
 		

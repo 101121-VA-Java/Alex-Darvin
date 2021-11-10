@@ -1,8 +1,8 @@
 package com.revature.controllers;
 
 import java.util.Scanner;
-import com.revature.controllers.EmployeeController;
-//import com.revature.controllers.CustomerController;
+//import com.revature.controllers.*;
+
 
 public class FrontController {
 
@@ -27,9 +27,11 @@ public class FrontController {
 			
 			switch(choice) {
 			case "1":
+			{
 				RegisterController.register(sc);
 				// TODO: if an employee is not registered, display a different message
 				break;
+			}
 			case "2":
 				LoginController.userLogin(sc);
 				break;

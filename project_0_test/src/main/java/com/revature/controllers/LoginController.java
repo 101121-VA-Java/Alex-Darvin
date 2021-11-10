@@ -3,13 +3,13 @@ package com.revature.controllers;
 import java.util.Scanner;
 
 import com.revature.exceptions.LoginException;
-//import com.revature.services.CustomerService;
-//import com.revature.services.EmployeeService;
-//
+import com.revature.services.CustomerServices;
+import com.revature.services.EmployeeServices;
+
 public class LoginController {
-//	
-//	private static CustomerService cs = new CustomerService();
-//	private static EmployeeService es = new EmployeeService();
+	
+	private static CustomerServices cs = new CustomerServices();
+	private static EmployeeServices es = new EmployeeServices();
 	
 	public static void userLogin(Scanner sc) {
 		System.out.println("Press 1 for customer, 2 for employee:");

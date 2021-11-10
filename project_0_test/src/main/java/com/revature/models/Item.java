@@ -74,10 +74,5 @@ public class Item {
 	public void setOffersMade(String offersMade) {
 		this.offersMade = offersMade;
 	}
-
-	public void setItemID(int id) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
