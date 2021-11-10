@@ -10,20 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Item;
-import com.revature.utilities.ConnectionUtil;
+import com.revature.util.ConnectionUtil;
 
 public class ItemPostgres implements ItemDao {
 
 	private Item makeNewItem(ResultSet rs) {
 
 		try {
-			int ItemID = rs.getInt("s_id");
-			String brand = rs.getString("s_brand");
-			String model = rs.getString("s_model");
-			Double price = rs.getDouble("s_price");
-			int inStock = rs.getInt("s_in_stock");
+			int i_id = rs.getInt("i_id");
+			String i_name = rs.getString("name");
+			double i_price = rs.getDouble("i_price");
+			int i_available = rs.getInt("i_available");
 			
-			return new Item(brand, model, price, inStock, ItemID);
+			return new Item(i_id, i_name, i_price, i_available);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -33,8 +32,8 @@ public class ItemPostgres implements ItemDao {
 
 	@Override
 	public Item getByID(int id) {
-		String sql = "select * from Items where s_id = ? ";
-		Item s = null;
+		String sql = "select * from Items where i_id = ? ";
+		Item i = null;
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -47,7 +46,7 @@ public class ItemPostgres implements ItemDao {
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
-		return s;
+		return i;
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class ItemPostgres implements ItemDao {
 	}
 
 	@Override
-	public List<Item> getInStock() {
+	public List<Item> getAvailable() {
 		String sql = "select * from Items where s_in_stock > 0;";
 		List<Item> Items = new ArrayList<>();
 
@@ -90,16 +89,15 @@ public class ItemPostgres implements ItemDao {
 
 	@Override
 	public Item add(Item Items) {
-		String sql = "insert into Items (s_brand, s_model, s_price, s_in_stock) "
-				+ "values (?, ?, ?, ?) returning s_id;";
+		String sql = "insert into Items (i_name, i_price, i_available) "
+				+ "values (?, ?, ?, ?) returning i_id;";
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, Items.getBrand());
-			ps.setString(2, Items.getModel());
+			ps.setString(1, Items.getName());
 			ps.setDouble(3, Items.getPrice());
-			ps.setInt(4, Items.getInStock());
+			ps.setInt(4, Items.getAvailable());
 
 
 			ResultSet rs = ps.executeQuery();
@@ -115,18 +113,17 @@ public class ItemPostgres implements ItemDao {
 	}
 
 	public boolean update(Item Items) {
-		String sql = "update Items set s_brand = ?, s_model = ?, s_price = ?, s_in_stock = ? "
-				+ "where s_id = ?;";
+		String sql = "update Items set name = ?, i_price = ?, i_available = ? "
+				+ "where i_id = ?;";
 
 		int rowsChanged = -1;
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, Items.getBrand());
-			ps.setString(2, Items.getModel());
+			ps.setString(2, Items.getName());
 			ps.setDouble(3, Items.getPrice());
-			ps.setInt(4, Items.getInStock());
+			ps.setInt(4, Items.getAvailable());
 			ps.setInt(5, Items.getItemID());
 
 			rowsChanged = ps.executeUpdate();
@@ -141,7 +138,7 @@ public class ItemPostgres implements ItemDao {
 	}
 
 	public Item remove(Item Items) {
-		String sql = "delete from Items where s_id = ?;";
+		String sql = "delete from Items where i_id = ?;";
 		int rowsChanged = -1;
 		int id = Items.getItemID();
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -157,6 +154,12 @@ public class ItemPostgres implements ItemDao {
 			return Items;
 		}
 
+	}
+
+	@Override
+	public Item getByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

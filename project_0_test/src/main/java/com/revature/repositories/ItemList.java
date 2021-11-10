@@ -48,6 +48,12 @@ public class ItemList implements ItemDao{
 		return null;
 	}
 
+	@Override
+	public List<Item> getAvailable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 }

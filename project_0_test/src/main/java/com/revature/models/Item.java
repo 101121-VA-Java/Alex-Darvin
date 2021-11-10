@@ -51,11 +51,11 @@ public class Item {
 		this.available = available;
 	}
 
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -75,5 +75,9 @@ public class Item {
 		this.offersMade = offersMade;
 	}
 
+	public void setItemID(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
