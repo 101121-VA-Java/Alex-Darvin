@@ -203,8 +203,6 @@ public class ItemServices {
 						+ i.getPrice() + " Purchased: " + i.getAvailable());
 			}
 		}
-		System.out.println("Press Any Key to Return to the Menu:");
-		String input = sc.nextLine();
 		CustomerController.customerMenu(sc);
 	}
 	
@@ -247,7 +245,7 @@ public class ItemServices {
 					i.setCustomerID(0);
 					addItem(i);
 					id.remove(removedItem);
-					System.out.println("Rejected offer fo " + i.getName() + "for $" + i.getPrice());
+					System.out.println("Rejected offer for " + i.getName() + "for $" + i.getPrice());
 				}
 			}
 		}

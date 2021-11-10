@@ -57,5 +57,11 @@ public class CartList implements CartDao{
 	public void setCart(List<Cart> cart) {
 		Cart = cart;
 	}
+
+	@Override
+	public List<com.revature.models.Cart> getInCart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -45,19 +45,20 @@ public class Cart {
 		this.itemPrice = itemPrice;
 	}
 
-	public String getEmail() {
+	public String getOffersMade() {
 		return offersMade;
 	}
 
-	public void setEmail(String offersMade) {
+	public void setOffersMade(String offersMade) {
 		this.offersMade = offersMade;
 	}
 
-	public int getPassword() {
-		return inCart;
+	public int getInCart() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-
-	public void setPassword(int inCart) {
+	
+	public void setInCart(int inCart) {
 		this.inCart = inCart;
 	}
 	

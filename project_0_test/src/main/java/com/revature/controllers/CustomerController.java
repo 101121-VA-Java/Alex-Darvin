@@ -75,7 +75,7 @@ public class CustomerController {
 	
 	public static void viewCart(Scanner sc) {
 		its.showCart();
-		System.out.print("To Submit Your Cart Press 1, To Remove an Item Press 2 Or Press 3 to Return to the Menu:");
+		System.out.print("To Checkout the Items in your Cart Press 1, To Remove an Item Press 2 Or Press 3 to Return to the Menu:");
 		String input = sc.nextLine();
 		if(input.equals("1")) {
 			System.out.println("Cart Submitted");
