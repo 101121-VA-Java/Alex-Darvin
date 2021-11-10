@@ -12,7 +12,7 @@ public class LoginController {
 	private static EmployeeServices es = new EmployeeServices();
 	
 	public static void userLogin(Scanner sc) {
-		System.out.println("Press 1 for customer, 2 for employee:");
+		System.out.println("Press 1 for customer, 2 for employee:"); 
 		String user = sc.nextLine();
 		
 		System.out.println("Please Enter Your Email:");

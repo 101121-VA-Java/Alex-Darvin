@@ -41,4 +41,11 @@ public class EmployeeServices {
 		}
 		return emp;
 	}
+	
+	public static void main(String[] args) throws LoginException {
+		EmployeeServices es = new EmployeeServices();
+		Employee emp = es.login("bviney4@cornell.edu", "Vzd8sIWDPk");
+		
+		System.out.println(emp.getFirstName());
+	}
 }

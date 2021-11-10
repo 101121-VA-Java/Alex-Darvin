@@ -18,11 +18,16 @@ public class ItemPostgres implements ItemDao {
 
 		try {
 			int i_id = rs.getInt("i_id");
-			String i_name = rs.getString("name");
+			String i_name = rs.getString("i_name");
 			double i_price = rs.getDouble("i_price");
 			int i_available = rs.getInt("i_available");
 			
-			return new Item(i_id, i_name, i_price, i_available);
+			Item item =  new Item(i_name,  i_available);
+			item.setPrice(i_price);
+			item.setItemID(i_id);
+			
+			return item;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -88,32 +93,34 @@ public class ItemPostgres implements ItemDao {
 	}
 
 	@Override
-	public Item add(Item Items) {
-		String sql = "insert into Items (i_name, i_price, i_available) "
-				+ "values (?, ?, ?, ?) returning i_id;";
+	public Item add(Item item) {
+		String sql = "insert into items (i_name, i_price, i_available) "
+				+ "values (?, ?, ?) returning i_id;";
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
-			PreparedStatement ps = con.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-			ps.setString(1, Items.getName());
-			ps.setDouble(3, Items.getPrice());
-			ps.setInt(4, Items.getAvailable());
+			ps.setString(1, item.getName());
+			ps.setDouble(2, item.getPrice());
+			ps.setInt(3, item.getAvailable());
 
 
-			ResultSet rs = ps.executeQuery();
-			ps.executeUpdate();
-
+			int n = ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) {
-				Items.setItemID(rs.getInt(1));
+				item.setItemID(rs.getInt(1));
 			}
+			
+			System.out.println("Recieve + " + item.getItemID());
+			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
-		return Items;
+		return item;
 	}
 
 	public boolean update(Item Items) {
-		String sql = "update Items set name = ?, i_price = ?, i_available = ? "
+		String sql = "update items set i_name = ?, i_price = ?, i_available = ? "
 				+ "where i_id = ?;";
 
 		int rowsChanged = -1;
@@ -121,10 +128,10 @@ public class ItemPostgres implements ItemDao {
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(2, Items.getName());
-			ps.setDouble(3, Items.getPrice());
-			ps.setInt(4, Items.getAvailable());
-			ps.setInt(5, Items.getItemID());
+			ps.setString(1, Items.getName());
+			ps.setDouble(2, Items.getPrice());
+			ps.setInt(3, Items.getAvailable());
+			ps.setInt(4, Items.getItemID());
 
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException | IOException e) {
@@ -138,7 +145,7 @@ public class ItemPostgres implements ItemDao {
 	}
 
 	public Item remove(Item Items) {
-		String sql = "delete from Items where i_id = ?;";
+		String sql = "delete from items where i_id = ?;";
 		int rowsChanged = -1;
 		int id = Items.getItemID();
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -162,4 +169,13 @@ public class ItemPostgres implements ItemDao {
 		return null;
 	}
 
+	public static void main(String[] args) {
+		ItemPostgres itp = new ItemPostgres();
+		Item item = new Item("Car", 100);
+		item.setPrice(5);
+		
+		itp.add(item);
+		item.setPrice(10000);
+		itp.update(item);
+	}
 }

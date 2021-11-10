@@ -16,7 +16,7 @@ public class RegisterController {
 		boolean flag = true;
 		while(flag) {
 			System.out.println("1: Register as a new Customer");
-			System.out.println("2: Register as a new Employe");
+			System.out.println("2: Register as a new Employee");
 			System.out.println("3: Return to the Main Menu");
 			
 			String input = sc.nextLine();

@@ -2,6 +2,7 @@ package com.revature.models;
 
 public class Item {
 
+	private int itemID;
 	private String name;
 	private double price;
 	private String offersMade;
@@ -13,9 +14,7 @@ public class Item {
 	}
 	
 	public Item(String name, int available) {
-		super();
-		this.name = name;
-		this.available = available;
+		this(name, 0, null, available);
 	}
 	
 	public Item(String name, double price, String offersMade, int available) {
@@ -43,6 +42,14 @@ public class Item {
 		this.customerID = customerID;
 	}
 	
+	public int getItemID() {
+		return itemID;
+	}
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+
 	public int getAvailable() {
 		return available;
 	}

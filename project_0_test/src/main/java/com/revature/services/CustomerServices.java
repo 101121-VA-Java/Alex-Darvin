@@ -19,7 +19,7 @@ public class CustomerServices {
 		if(newCustomer != null) {
 			throw new EmailTakenException();
 		}
-		return cd.add(c);
+		return cd.add(c); 
 	}
 	
 	public Customer getCustomerByEmail(String email) {
@@ -49,5 +49,11 @@ public class CustomerServices {
 				ct.setLoggedIn(false);
 			}
 		}
+	}
+	
+	public static void main(String[] args) throws LoginException {
+		CustomerServices cs = new CustomerServices();
+		Customer ct = cs.login("test@test.com", "123");
+		System.out.println(ct.getEmail());
 	}
 }

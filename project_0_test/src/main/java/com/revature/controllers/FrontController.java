@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class FrontController {
 
 	public static Scanner sc = new Scanner(System.in);
-	
+	 
 	public static void run() {
 		boolean run = true;
 		

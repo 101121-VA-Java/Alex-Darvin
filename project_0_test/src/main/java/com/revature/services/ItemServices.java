@@ -85,32 +85,32 @@ public class ItemServices {
 			}
 		} else if(choice > 0 && choice < item.size()) {
 			int counter = 0;
-			Item skiChoice = new Item();
+			Item itemChoice = new Item();
 			for(Item i: item) {
 				if(i.getOffersMade().equals("Available")){
 					counter += 1;
 					if(choice == counter) {
-						skiChoice = s;
+						itemChoice = i;
 					} 
 				}
 			}
-			System.out.println("Added (1) " + skiChoice.getName()
+			System.out.println("Added (1) " + itemChoice.getName()
 					+ " to Your Cart");
-			int newAvailable = skiChoice.getAvailable() - 1;
-			skiChoice.setAvailable(newAvailable);
+			int newAvailable = itemChoice.getAvailable() - 1;
+			itemChoice.setAvailable(newAvailable);
 			for(Customer cust : customers) {
 				if(cust.isLoggedIn() == true) {
 					customerLoggedIn = cust;
 				}
 			}
 			int cartID = customerLoggedIn.getCustomerID();
-			id.update(skiChoice);
-			Item cartItem = new Item(skiChoice.getName(), skiChoice.getPrice(), 
+			id.update(itemChoice);
+			Item cartItem = new Item(itemChoice.getName(), itemChoice.getPrice(), 
 					 "Pending", 1, cartID);
 			id.add(cartItem);
 			System.out.println("Press 1 to Continue Shopping or Press 2 to Return to the Dashboard");
-			String input002 = sc.nextLine();
-			if(input002.equals("1")) {
+			String input = sc.nextLine();
+			if(input.equals("1")) {
 				CustomerController.shopInventory(sc);
 			} else {
 				CustomerController.customerMenu(sc);
@@ -148,10 +148,10 @@ public class ItemServices {
 				customerLoggedIn = cust;
 			}
 		}
-		for(Item s: item) {
-			if(i.getOfferStatus().equals("Pending") && i.getCustomerID() == customerLoggedIn.getCustomerID()){
-				i.setOfferStatus("Submitted");
-				id.update(s);
+		for(Item i: item) {
+			if(i.getOffersMade().equals("Pending") && i.getCustomerID() == customerLoggedIn.getCustomerID()){
+				i.setOffersMade("Submitted");
+				id.update(i);
 			}
 		}
 	}
@@ -166,7 +166,7 @@ public class ItemServices {
 			}
 		}
 		int counter = 0;
-		for(Item i: item) {
+		for(Item i: items) {
 			if(i.getOffersMade().equals("Pending") && i.getCustomerID() == customerLoggedIn.getCustomerID()){
 				counter += 1;
 				if(item == counter) {
@@ -242,7 +242,7 @@ public class ItemServices {
 					i.setCustomerID(0);
 					addItem(i);
 					id.remove(removedItem);
-					System.out.println("Rejected offer on " + i.getName() + "for $" + i.getPrice());
+					System.out.println("Rejected offer fo " + i.getName() + "for $" + i.getPrice());
 				}
 			}
 		}
@@ -253,7 +253,7 @@ public class ItemServices {
 		double total = 0;
 		int counter = 0;
 		for(Item i: item) {
-			if(i.getOfferStatus().equals("Owned")) {
+			if(i.getOffersMade().equals("Owned")) {
 				counter += 1;
 				System.out.println(counter + i.getName() + " " + i.getAvailable() +  " $" + i.getPrice());
 				total += i.getPrice();

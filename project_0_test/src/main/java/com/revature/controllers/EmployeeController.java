@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.revature.models.Item;
 import com.revature.services.ItemServices;
+import com.revature.services.EmployeeServices;
 
 public class EmployeeController {
 	
@@ -14,13 +15,12 @@ public class EmployeeController {
 		boolean flag = true;
 		while(flag) {
 			System.out.println();
-			System.out.println("Employee Dashboard");
-			System.out.println("\n1: Add an item to the shop"
-								+ "\n2: Remove an item from the shop"
-								+ "\n3: View offers for Items"
-								+ "\n4: View all payments"
-								+ "\n5: Log Out");
-			
+			System.out.println("Employee Menu");
+			System.out.println("1: Add an item to the shop");
+			System.out.println("1: Remove an item to the shop");
+			System.out.println("1: View offers on Items");
+			System.out.println("1: View Payments");
+			System.out.println("Exit");
 			String input = sc.nextLine();
 			switch(input){
 			case "1":
@@ -52,7 +52,6 @@ public class EmployeeController {
 				System.out.println("Invalid Input, Please Select a Valid Option");
 				System.out.println();
 			}
-		
 		}
 	}
 	
@@ -65,9 +64,11 @@ public class EmployeeController {
 		System.out.println("How many would :");
 		int available = sc.nextInt();
 		sc.nextLine();
-		Item i = new Item(name, price, available);
-		i = its.addItems(i);
-		System.out.println("Item added: " + i.getName() + " " + s.getModel() + " " + s.getPrice() + " " + s.getInStock());
+		Item i = new Item(name, available);
+		i.setPrice(price);
+		
+		i = its.addItem(i);
+		System.out.println("Item added: " + i.getName() + " " + i.getPrice() + " " + i.getAvailable());
 		employeeMenu(sc);
 	}
 	
@@ -78,10 +79,10 @@ public class EmployeeController {
 		int available = sc.nextInt();
 		sc.nextLine();
 		Item i = new Item(name, available);
-		i = its.removeItems(i);
+		i = its.removeItem(i);
 		System.out.println("Successfully Removed Item.");	
 		if(i != null) {
-			System.out.println("Product Remaining: " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getInStock());
+			System.out.println("Product Remaining: " + i.getName() + " " + i.getPrice() + " " + i.getAvailable());
 		}
 		employeeMenu(sc);
 	}
@@ -96,13 +97,13 @@ public class EmployeeController {
 		System.out.println();
 		String input = sc.nextLine();
 		if(input.equals("1")) {
-			System.out.println("Enter the Number of the Item You Would Accept");
+			System.out.println("Which Item Bid You Would Like To Accept");
 			int item = sc.nextInt();
 			sc.nextLine();
-			ss.acceptOffer(item);
+			its.acceptOffer(item);
 			viewOffers(sc);
 		} else if (input.equals("2")) {
-			System.out.println("Enter the Number of the Item You Would Reject");
+			System.out.println("What Item Bid You Would Like To Reject");
 			int item = sc.nextInt();
 			sc.nextLine();
 			its.rejectOffer(item);
@@ -114,7 +115,7 @@ public class EmployeeController {
 	
 	public static void viewPayments(Scanner sc) {
 		its.showPayments();
-		System.out.print("Press Any Number to Return to the Dashboard:");
+		System.out.print("Press Any Number to Return to the Menu:");
 		int numInput = sc.nextInt();
 		sc.nextLine();
 		if(numInput > 0) {
@@ -125,7 +126,5 @@ public class EmployeeController {
 		}
 		
 	}
-	
-	
 	
 }

@@ -2,7 +2,7 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-import com.revature.models.Item;
+//import com.revature.models.Item;
 import com.revature.services.ItemServices;
 import com.revature.services.CustomerServices;
 
@@ -16,7 +16,7 @@ public class CustomerController {
 		boolean flag = true;
 		while(flag){
 			System.out.println();
-			System.out.println("Customer Menu:");
+			System.out.println("Welcome to the Adventurers' Shop!:");
 			System.out.println("1: View Shop");
 			System.out.println("2: View Your Cart");
 			System.out.println("3: View Your Order History");

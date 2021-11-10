@@ -29,7 +29,7 @@ public class CustomerPostgres implements CustomerDao {
 				String c_username = rs.getString("c_username");
 				String c_email = rs.getString("c_email");
 				String c_password = rs.getString("c_password");
-				Boolean loggedIn = rs.getBoolean("c_logged_in");
+				Boolean loggedIn = rs.getBoolean("c_loggin");
 
 
 				cust = new Customer(c_id, c_username, c_email, c_password, loggedIn);
@@ -46,7 +46,7 @@ public class CustomerPostgres implements CustomerDao {
 		String sql = "select * from customers;";
 		List <Customer> customers = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+		try (Connection con = ConnectionUtil.getConnectionFromFile()){ 
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
 			
@@ -55,7 +55,7 @@ public class CustomerPostgres implements CustomerDao {
 				String username = rs.getString("c_username");
 				String email = rs.getString("c_email");
 				String password = rs.getString("c_password");
-				Boolean loggedIn = rs.getBoolean("c_logged_in");
+				Boolean loggedIn = rs.getBoolean("c_loggin");
 				
 				Customer newCust = new Customer(customerID, username, email, password, loggedIn);
 				customers.add(newCust);
@@ -69,16 +69,17 @@ public class CustomerPostgres implements CustomerDao {
 	
 	@Override
 	public Customer add(Customer customer) {
-		String sql = "insert into customers (c_id, c_username, c_email, c_password) "
-					+ "values (?, ?, ?, ?, ?);";
+		String sql = "insert into customers ( c_username, c_email, c_password, c_loggin) "
+					+ "values ( ?, ?, ?, ?);";
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, customer.getCustomerID());
-			ps.setString(2, customer.getUsername());
-			ps.setString(4, customer.getEmail());
-			ps.setString(5, customer.getPassword());
+			
+			ps.setString(1, customer.getUsername());
+			ps.setString(2, customer.getEmail());
+			ps.setString(3, customer.getPassword());
+			ps.setBoolean(4, false);
 			
 			ps.executeUpdate();
 
@@ -90,7 +91,7 @@ public class CustomerPostgres implements CustomerDao {
 	}
 	
 	public boolean update(Customer customer) {
-		String sql = "update customers set c_username = ?, c_email = ?, c_password = ?, c_logged_in = ? "
+		String sql = "update customers set c_username = ?, c_email = ?, c_password = ?, c_loggin = ? "
 				+ "where c_id = ?;";
 		
 		int rowsChanged = -1;
@@ -98,11 +99,11 @@ public class CustomerPostgres implements CustomerDao {
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setString(3, customer.getUsername());
-			ps.setString(3, customer.getEmail());
-			ps.setString(4, customer.getPassword());
-			ps.setBoolean(5, customer.isLoggedIn());
-			ps.setInt(6, customer.getCustomerID());
+			ps.setString(1, customer.getUsername());
+			ps.setString(2, customer.getEmail());
+			ps.setString(3, customer.getPassword());
+			ps.setBoolean(4, customer.isLoggedIn());
+			ps.setInt(5, customer.getCustomerID());
 			
 			rowsChanged = ps.executeUpdate();
 		}
@@ -142,5 +143,14 @@ public class CustomerPostgres implements CustomerDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	public static void main(String[] args) {
+		CustomerPostgres cp = new CustomerPostgres();
+		
+		Customer customer = new Customer("AA", "test@test.com", "123");
+		cp.add(customer);
+		
+		Customer c = cp.getByID(1);
+		System.out.println(c.getEmail());
+	}
 }
