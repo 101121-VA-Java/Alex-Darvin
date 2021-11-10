@@ -19,7 +19,7 @@ public class Customer {
 		this.password = password;
 	}
 
-	public Customer(int customerID, String username, String lastName, String email, String password) {
+	public Customer(int customerID, String username, String email, String password) {
 		super();
 		this.customerID = customerID;
 		this.username = username;
@@ -27,7 +27,7 @@ public class Customer {
 		this.password = password;
 	}
 	
-	public Customer(int customerID, String username, String lastName, String email, String password,
+	public Customer(int customerID, String username, String email, String password,
 			boolean loggedIn) {
 		super();
 		this.customerID = customerID;
@@ -53,11 +53,11 @@ public class Customer {
 		this.customerID = customerID;
 	}
 
-	public String getusername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setusername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
