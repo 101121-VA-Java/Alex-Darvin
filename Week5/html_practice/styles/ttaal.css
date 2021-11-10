@@ -1,0 +1,25 @@
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.truth:hover{
+    background-color: blue;
+    color: rgb(255, 255, 255);
+}
+
+.lie:hover{
+    background-color: red;
+}
+
+main{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: x-large;
+}
+
+td,th {
+    padding: 1em;
+    border: 1px solid black;
+    text-align: center;
+}
