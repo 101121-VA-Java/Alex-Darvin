@@ -21,7 +21,6 @@ public class LoginController {
 		
 		System.out.println("Please Enter Your Password:");
 		String password = sc.nextLine();
-		// check to see if password matches email and is correct
 		
 		if(user.equals("1")) {
 			try {

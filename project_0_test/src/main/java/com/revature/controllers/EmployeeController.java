@@ -24,31 +24,26 @@ public class EmployeeController {
 			String input = sc.nextLine();
 			switch(input){
 			case "1":
-				// Add item
 				System.out.println("Add an Item to the Shop:");
 				flag = false;
 				addItemToShop(sc);
 				break;
 			case "2":
-				// Remove an item from the shop
 				System.out.println("Remove an Item from the Shop:");
 				flag = false;
 				removeItemFromShop(sc);
 				break;
 			case "3":
-				// View Offers
 				System.out.println("View Offers For Items");
 				flag = false;
 				viewOffers(sc);
 				break;
 			case "4":
-				// View Payments
 				System.out.println("View Payments");
 				viewPayments(sc);
 				flag = false;
 				break;
 			case "5":
-				// Log Out
 				System.out.println("You Have Successfully Logged Out");
 				flag = false;
 				FrontController.run();

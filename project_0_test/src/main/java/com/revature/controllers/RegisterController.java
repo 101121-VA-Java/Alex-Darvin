@@ -23,27 +23,22 @@ public class RegisterController {
 			System.out.println("1: Register as a new Customer");
 			System.out.println("2: Register as a new Employe");
 			System.out.println("3: Return to the Main Menu");
-		
 			
-			// take in user input
 			String input = sc.nextLine();
 			switch(input){
 			case "1":
-				// Start Customer Registration
 				System.out.println("Customer Registration:");
 				System.out.println();
 				registerCustomer(sc);
 				flag = false;
 				break;
 			case "2":
-				// Start Employee Registration
 				System.out.println("Employee Registration:");
 				System.out.println();
 				registerEmployee(sc);
 				flag = false;
 				break;
 			case "3":
-				// return to main menu
 				FrontController.run();
 				flag = false;
 				break;
