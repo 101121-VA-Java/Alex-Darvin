@@ -1,0 +1,59 @@
+
+
+create table employees (
+	e_id INT,
+	e_first_name VARCHAR(50),
+	e_last_name VARCHAR(50),
+	e_email VARCHAR(50) unique not null,
+	e_password VARCHAR(50) not null
+);
+insert into employees (e_id, e_first_name, e_last_name, e_email, e_password) values (1, 'Alex', 'Darvin', 'alex.darvin@revature.com', 'AbCd1234');
+insert into employees (e_id, e_first_name, e_last_name, e_email, e_password) values (2, 'Jada', 'Dyche', 'jdyche1@storify.com', '9MXLe4Q9z');
+insert into employees (e_id, e_first_name, e_last_name, e_email, e_password) values (3, 'Glenine', 'Decruse', 'gdecruse2@census.gov', 'bgmISqb00cI');
+insert into employees (e_id, e_first_name, e_last_name, e_email, e_password) values (4, 'Geoff', 'Wyldbore', 'gwyldbore3@goo.gl', 'WXw3jKBHjwVP');
+insert into employees (e_id, e_first_name, e_last_name, e_email, e_password) values (5, 'Bettye', 'Viney', 'bviney4@cornell.edu', 'Vzd8sIWDPk');
+insert into employees (e_id, e_first_name, e_last_name, e_email, e_password) values (6, 'Agosto', 'L''Hommeau', 'alhommeau5@about.com', 'zckHoDcjUgH');
+
+
+drop table customers;
+create table customers (
+	c_id serial,
+	c_username VARCHAR(50),
+	c_email VARCHAR(50),
+	c_password VARCHAR(50),
+	c_loggin BOOLEAN not null
+);
+
+
+drop table items;
+create table items (
+	i_id serial,
+	i_name VARCHAR(50),
+	i_price float,
+	i_offers_made VARCHAR(50),
+	i_available INT
+);
+
+
+
+insert into items ( i_name, i_price, i_offers_made, i_available) values ('healing potion', '50', 'Available', '5');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'greater healing potion', '100', 'Available', '3');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ('superior healing potion', '150', 'Available', '2');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'shortsword', '20', 'Available', '2');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'longbow', '25', 'Available', '3');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'arrows', '1', 'Available', '30');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'light armor', '35', 'Available', '4');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'medium armor', '40', 'Available', '3');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'heavy armor', '50', 'Available', '1');
+insert into items ( i_name, i_price, i_offers_made, i_available) values ( 'handaxe', '15', 'Available', '8');
+
+create table carts (
+	ct_id serial,
+	ct_item_name VARCHAR(50),
+	ct_item_price float,
+	ct_offers_made VARCHAR(50),
+	ct_in_cart INT,
+	ct_customer_id INT
+)
+
+
