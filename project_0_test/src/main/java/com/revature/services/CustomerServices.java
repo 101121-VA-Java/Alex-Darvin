@@ -51,9 +51,9 @@ public class CustomerServices {
 		}
 	}
 	
-	public static void main(String[] args) throws LoginException {
-		CustomerServices cs = new CustomerServices();
-		Customer ct = cs.login("test@test.com", "123");
-		System.out.println(ct.getEmail());
-	}
+//	public static void main(String[] args) throws LoginException {
+//		CustomerServices cs = new CustomerServices();
+//		Customer ct = cs.login("test@test.com", "123");
+//		System.out.println(ct.getEmail());
+//	}
 }

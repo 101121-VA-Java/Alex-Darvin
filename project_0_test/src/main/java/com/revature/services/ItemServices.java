@@ -60,22 +60,27 @@ public class ItemServices {
 	
 	public void showInventory() {
 		List<Item> item = id.getAll();
+		System.out.println(item.size());
 		int counter = 0;
 		for(Item i: item) {
+			System.out.println(i.getOffersMade());
 			if(i.getOffersMade().equals("Available")){
 				counter += 1;
 				System.out.println(counter + ": " + i.getName() + " $"
 						+ i.getPrice() + " In Stock: " + i.getAvailable());
 			}
+			if (counter == item.size()) {
+				break;
+			}
 		}
 	}
 	
 	public void moveToCart(int choice) {
-		List<Item> item = id.getAll();
+		List<Item> item = id.getAll(); 
 		List<Customer> customers = cd.getAll();
 		Customer customerLoggedIn = new Customer();
 		if(choice > item.size()) {
-			System.out.println("Invalid Input, Please Select an Number from the List or 0 to return to the Dashboard:");
+			System.out.println("Invalid Input, Please Select an Number from the List or 0 to return to the Menu:");
 			choice = sc.nextInt();
 			sc.nextLine();
 			if(choice == 0){
@@ -108,7 +113,7 @@ public class ItemServices {
 			Item cartItem = new Item(itemChoice.getName(), itemChoice.getPrice(), 
 					 "Pending", 1, cartID);
 			id.add(cartItem);
-			System.out.println("Press 1 to Continue Shopping or Press 2 to Return to the Dashboard");
+			System.out.println("Press 1 to Continue Shopping or Press 2 to Return to the Menu");
 			String input = sc.nextLine();
 			if(input.equals("1")) {
 				CustomerController.shopInventory(sc);
@@ -198,8 +203,8 @@ public class ItemServices {
 						+ i.getPrice() + " Purchased: " + i.getAvailable());
 			}
 		}
-		System.out.println("Press Any Key to Return to the Dashboard:");
-		String input003 = sc.nextLine();
+		System.out.println("Press Any Key to Return to the Menu:");
+		String input = sc.nextLine();
 		CustomerController.customerMenu(sc);
 	}
 	

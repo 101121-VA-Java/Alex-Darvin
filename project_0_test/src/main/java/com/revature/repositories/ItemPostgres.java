@@ -20,11 +20,12 @@ public class ItemPostgres implements ItemDao {
 			int i_id = rs.getInt("i_id");
 			String i_name = rs.getString("i_name");
 			double i_price = rs.getDouble("i_price");
+			String i_offers_made = rs.getString("i_offers_made");
 			int i_available = rs.getInt("i_available");
-			
-			Item item =  new Item(i_name,  i_available);
-			item.setPrice(i_price);
-			item.setItemID(i_id);
+//			System.out.println(i_price);
+			Item item =  new Item(i_name, i_price, i_offers_made, i_available, i_id);
+			//item.setPrice(i_price);
+			//item.setItemID(i_id);
 			
 			return item;
 			
@@ -65,6 +66,7 @@ public class ItemPostgres implements ItemDao {
 
 			while (rs.next()) {
 				Items.add(makeNewItem(rs));
+				
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -111,7 +113,7 @@ public class ItemPostgres implements ItemDao {
 				item.setItemID(rs.getInt(1));
 			}
 			
-			System.out.println("Recieve + " + item.getItemID());
+//			System.out.println("Recieve + " + item.getItemID());
 			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -169,13 +171,13 @@ public class ItemPostgres implements ItemDao {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		ItemPostgres itp = new ItemPostgres();
-		Item item = new Item("Car", 100);
-		item.setPrice(5);
-		
-		itp.add(item);
-		item.setPrice(10000);
-		itp.update(item);
-	}
+//	public static void main(String[] args) {
+//		ItemPostgres itp = new ItemPostgres();
+//		Item item = new Item("Car", 100);
+//		item.setPrice(5);
+//		
+//		itp.add(item);
+//		item.setPrice(10000);
+//		itp.update(item);
+//	}
 }

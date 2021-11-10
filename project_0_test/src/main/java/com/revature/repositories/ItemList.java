@@ -10,7 +10,8 @@ public class ItemList implements ItemDao{
 	private List<Item> Items;
 	
 	public ItemList() {
-		Items = new ArrayList<>();
+		Items = new ArrayList<Item>();
+		
 	}
 
 	@Override
@@ -54,6 +55,4 @@ public class ItemList implements ItemDao{
 		return null;
 	}
 
-
-	
 }

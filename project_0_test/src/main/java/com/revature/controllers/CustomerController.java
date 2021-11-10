@@ -26,7 +26,7 @@ public class CustomerController {
 			switch(input){
 			case "1":
 				// view shop method
-				System.out.println("Shop Our Inventory:");
+				System.out.println("Browse Our Wares Andventurer!");
 				flag = false;
 				shopInventory(sc);
 				break;
@@ -61,8 +61,8 @@ public class CustomerController {
 		System.out.println();
 		its.showInventory();
 		System.out.println();
-		System.out.println("Please Enter the Item Number For the Items You Would Like to Add to Your Cart");
-		System.out.println("Or Press 0 to Return to the Customer Dashboard:");
+		System.out.println("Please Enter the Item Number For the Item You Would Like to Add to Your Cart");
+		System.out.println("Or Press 0 to Return to the Customer Menu:");
 		int choice = sc.nextInt();
 		sc.nextLine();
 		if(choice == 0){
@@ -75,7 +75,7 @@ public class CustomerController {
 	
 	public static void viewCart(Scanner sc) {
 		its.showCart();
-		System.out.print("To Submit Your Cart Press 1, To Remove an Item Press 2 Or Press 3 to Return to the Dashboard:");
+		System.out.print("To Submit Your Cart Press 1, To Remove an Item Press 2 Or Press 3 to Return to the Menu:");
 		String input = sc.nextLine();
 		if(input.equals("1")) {
 			System.out.println("Cart Submitted");
