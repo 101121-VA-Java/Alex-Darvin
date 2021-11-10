@@ -61,7 +61,8 @@ public class RegisterController {
 			System.out.println("Email is Already in use! Please login or register a different email address...");
 		}
 		
-		System.out.println("Returning to the main menu...");
+		System.out.println("Successfully Registered! ");
+		System.out.println("Returning to the main menu for Login");
 		FrontController.run();
 		
 	}

@@ -76,7 +76,7 @@ public class ItemPostgres implements ItemDao {
 
 	@Override
 	public List<Item> getAvailable() {
-		String sql = "select * from Items where s_in_stock > 0;";
+		String sql = "select * from Items where i_available > 0;";
 		List<Item> Items = new ArrayList<>();
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {

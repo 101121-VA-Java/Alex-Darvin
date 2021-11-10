@@ -17,9 +17,9 @@ public class EmployeeController {
 			System.out.println();
 			System.out.println("Employee Menu");
 			System.out.println("1: Add an item to the shop");
-			System.out.println("1: Remove an item to the shop");
-			System.out.println("1: View offers on Items");
-			System.out.println("1: View Payments");
+			System.out.println("2: Remove an item to the shop");
+			System.out.println("3: View offers on Items");
+			System.out.println("4: View Payments");
 			System.out.println("Exit");
 			String input = sc.nextLine();
 			switch(input){
@@ -61,10 +61,11 @@ public class EmployeeController {
 		System.out.println("Input the price of the item:");
 		double price = sc.nextInt();
 		sc.nextLine();
-		System.out.println("How many would :");
+		System.out.println("How many would you like to add?:");
 		int available = sc.nextInt();
 		sc.nextLine();
-		Item i = new Item(name, available);
+		String offersMade = "Available";
+		Item i = new Item(name, price, offersMade, available);
 		i.setPrice(price);
 		
 		i = its.addItem(i);
