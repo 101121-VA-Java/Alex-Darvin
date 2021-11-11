@@ -37,11 +37,10 @@ public class CustomerController {
 				// View Cart
 				System.out.println("Viewing Your Cart:");
 				flag = false;
-				viewCart(sc);
+//				viewCart();
 				break;
 			case "3":
-				// View Order History
-				System.out.println("Make An Offer For An Item");
+				System.out.println("View Payments You Have Made:");
 				orderHistory();
 				flag = false;
 				break;
@@ -56,6 +55,7 @@ public class CustomerController {
 				System.out.println("Invalid Input, Please Select an Option 1-4.");
 				System.out.println();
 			}
+			
 		}
 	}
 	
@@ -66,42 +66,43 @@ public class CustomerController {
 		System.out.println();
 		System.out.println("Please Enter the Item Number For the Item You Would Like to Place an Offer For:");
 		System.out.println("Or Press 0 to Return to the Customer Menu:");
-		int choice = sc.nextInt();
 		int itemId = sc.nextInt();
-		sc.nextLine();
-		if(choice == 0){
+		if(itemId == 0){
+			System.out.println("Please Enter a Valid Item Number");
 			customerMenu(sc);
 		} else {
 			//change moveToCart to add an offer to the database
-			System.out.println("Enter Your Customer ID:");
-			int customerId = sc.nextInt();
+			System.out.println("Enter Your Email:");
+			String customerEmail = sc.nextLine();
+			sc.nextLine();
 			System.out.println("How Much Would You Like To Offer?");
 			float amount = sc.nextFloat();
 			boolean accepted = false;
-			Offer o = new Offer(customerId, itemId, amount, accepted);
+			Offer o = new Offer(itemId, customerEmail, amount, accepted);
+			accepted = false;
 			OfferServices.submit(o);
 			System.out.println("Offer Pending Approval");
-			
 		}
-		
+
 	}
 	
-//	public static void viewCart(Scanner sc) {
+	
+//	public static void viewCart(Scanner ) {
 //		its.showCart();
 //		System.out.print("To Checkout the Items in your Cart Press 1, To Remove an Item Press 2 Or Press 3 to Return to the Menu:");
 //		String input = sc.nextLine();
 //		if(input.equals("1")) {
 //			System.out.println("Cart Submitted");
 //			its.submitCart();
-//			customerMenu(sc);
+//			customerMenu();
 //		} else if(input.equals("2")) {
 //			System.out.println("Enter the Number of the Item You Would Remove:");
-//			int item = sc.nextInt();
+//			item = sc.nextInt();
 //			sc.nextLine();
 //			its.removeFromCart(item);
-//			viewCart(sc);
+//			viewCart();
 //		} else {
-//			customerMenu(sc);
+//			customerMenu();
 //		}
 //	}
 	

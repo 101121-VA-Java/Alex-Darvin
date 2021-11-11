@@ -46,7 +46,7 @@ public class RegisterController {
 	
 	public static void registerCustomer(Scanner sc) {
 		
-		System.out.println("Please Enter Create Your Username:");
+		System.out.println("Please Enter Your Username:");
 		String username = sc.nextLine();
 		
 		System.out.println("Please Enter Your Email:");

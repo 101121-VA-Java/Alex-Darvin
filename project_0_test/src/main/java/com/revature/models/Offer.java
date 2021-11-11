@@ -5,20 +5,36 @@ import java.util.Objects;
 public class Offer {
 	private int offerId;
 	private int itemId;
-	private int customerId;
+	private String customerEmail;
 	private float amount;
 	private boolean offerAccepted;
 
 	
-	public Offer(int offerId, int itemId, int customerId, float amount, boolean offerAccepted) {
+	public Offer(int offerId, int itemId, String customerEmail, float amount, boolean offerAccepted) {
 		super();
 		this.offerId = offerId;
 		this.itemId = itemId;
-		this.customerId = customerId;
+		this.customerEmail = customerEmail;
+		this.amount = amount;
+		this.offerAccepted = offerAccepted;
+	}
+	
+	public Offer(int itemId, String customerEmail, float amount, boolean offerAccepted) {
+		super();
+		this.itemId = itemId;
+		this.customerEmail = customerEmail;
 		this.amount = amount;
 		this.offerAccepted = offerAccepted;
 	}
 
+
+	public Offer(String customerEmail, int itemId, float amount) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.itemId = itemId;
+		this.customerEmail = customerEmail;
+		this.amount = amount;
+	}
 
 	public int getOfferId() {
 		return offerId;
@@ -40,13 +56,13 @@ public class Offer {
 	}
 
 
-	public int getCustomerId() {
-		return customerId;
+	public String getCustomerEmail() {
+		return customerEmail;
 	}
 
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomerId(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 
 
@@ -72,7 +88,7 @@ public class Offer {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, customerId, itemId, offerAccepted, offerId);
+		return Objects.hash(amount, customerEmail, itemId, offerAccepted, offerId);
 	}
 
 
@@ -85,7 +101,7 @@ public class Offer {
 		if (getClass() != obj.getClass())
 			return false;
 		Offer other = (Offer) obj;
-		return Float.floatToIntBits(amount) == Float.floatToIntBits(other.amount) && customerId == other.customerId
+		return Float.floatToIntBits(amount) == Float.floatToIntBits(other.amount) && customerEmail == other.customerEmail
 				&& itemId == other.itemId && offerAccepted == other.offerAccepted && offerId == other.offerId;
 	}
 

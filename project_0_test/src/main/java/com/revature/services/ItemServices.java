@@ -6,7 +6,6 @@ import java.util.Scanner;
 import com.revature.repositories.CustomerDao;
 import com.revature.repositories.CustomerPostgres;
 import com.revature.repositories.ItemDao;
-//import com.revature.repositoriei.ItemList;
 import com.revature.repositories.ItemPostgres;
 import com.revature.models.Customer;
 import com.revature.models.Item;

@@ -2,7 +2,6 @@ package com.revature.services;
 
 import java.util.List;
 import com.revature.models.Offer;
-import com.revature.models.Item;
 import com.revature.repositories.OfferDao;
 import com.revature.repositories.OfferPostgres;
 

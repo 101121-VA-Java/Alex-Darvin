@@ -9,10 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import com.revature.models.Employee;
 import com.revature.models.Offer;
-import com.revature.models.Customer;
 import com.revature.util.ConnectionUtil;
 
 public class OfferPostgres implements OfferDao {
@@ -22,12 +19,12 @@ public class OfferPostgres implements OfferDao {
 	@Override
 	public Offer add(Offer u) {
 		// TODO Auto-generated method stub
-		String sql = "insert into offers (customerId, itemId, amount, accepted)" + "values (?, ?, ?, ?) returning offerId"; 
+		String sql = "insert into offers (customerEmail, itemId, amount, accepted)" + "values (?, ?, ?, ?) returning offerId"; 
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-			ps.setInt(1, u.getCustomerId());
+			ps.setString(1, u.getCustomerEmail());
 			ps.setInt(2, u.getItemId());
 			ps.setFloat(3, u.getAmount());
 			ps.setBoolean(4, u.isOfferAccepted());
@@ -38,8 +35,6 @@ public class OfferPostgres implements OfferDao {
 			if(rs.next()) {
 				u.setOfferId(rs.getInt(1));
 			}
-			
-//			System.out.println("Recieve + " + offer.getItemID());
 			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -65,13 +60,13 @@ public class OfferPostgres implements OfferDao {
 
 			while (rs.next()) {
 				int offerId = rs.getInt("offerId");
-				int customerId = rs.getInt("customerId");
+				String customerEmail = rs.getString("customerEmail");
 				int itemId = rs.getInt("itemId");
 				float amount = rs.getFloat("amount");
 				boolean accepted = rs.getBoolean("accepted");
 				
 
-			Offer newOffer = new Offer(offerId, customerId, itemId, amount, accepted);
+			Offer newOffer = new Offer(offerId, itemId, customerEmail, amount, accepted);
 			offers.add(newOffer);
 			}
 		} catch (SQLException e) {
@@ -97,7 +92,6 @@ public class OfferPostgres implements OfferDao {
 		System.out.println("Pending Offer Approval...");
 		
 		String sql = "select * from offers; update offers set accepted = ? where offerId = ?;";
-		List<Offer> offers = new ArrayList<>();
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -120,7 +114,9 @@ public class OfferPostgres implements OfferDao {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		sc.close();
 		return result;
+		
 	}
 
 	@Override

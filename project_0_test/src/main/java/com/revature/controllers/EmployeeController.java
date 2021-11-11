@@ -11,7 +11,6 @@ import com.revature.services.EmployeeServices;
 public class EmployeeController {
 	
 	private static ItemServices its = new ItemServices();
-	private static OfferServices os = new OfferServices();
 	
 	public static void employeeMenu(Scanner sc) {
 		// print out menu
@@ -98,19 +97,19 @@ public class EmployeeController {
 		System.out.print("To Reject an Offer Press 2");
 		System.out.print("To Return to the Main Menu Press 3:");
 		System.out.println();
-		System.out.println();
 		String input = sc.nextLine();
 		if(input.equals("1")) {
-			System.out.println("Which Item Bid You Would Like To Accept");
-			int item = sc.nextInt();
+			System.out.println("Which Offer You Would Like To Accept");
+			OfferServices.getAll();
+			int offerId = sc.nextInt();
 			sc.nextLine();
-			its.acceptOffer(item);
-			viewOffers(sc);
+			// sql query to change accepted to true where offerId = ?
+			OfferServices.update(Offer o);
 		} else if (input.equals("2")) {
-			System.out.println("What Item Bid You Would Like To Reject");
-			int item = sc.nextInt();
+			System.out.println("What Offer Would You Like To Reject");
+			int offerId = sc.nextInt();
 			sc.nextLine();
-			its.rejectOffer(item);
+			OfferServices.update();
 			viewOffers(sc);
 		} else {
 			employeeMenu(sc);
