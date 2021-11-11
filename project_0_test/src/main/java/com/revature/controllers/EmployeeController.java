@@ -4,11 +4,14 @@ import java.util.Scanner;
 
 import com.revature.models.Item;
 import com.revature.services.ItemServices;
+import com.revature.models.Offer;
+import com.revature.services.OfferServices;
 import com.revature.services.EmployeeServices;
 
 public class EmployeeController {
 	
 	private static ItemServices its = new ItemServices();
+	private static OfferServices os = new OfferServices();
 	
 	public static void employeeMenu(Scanner sc) {
 		// print out menu
