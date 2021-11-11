@@ -20,7 +20,7 @@ public class EmployeeController {
 			System.out.println("2: Remove an item to the shop");
 			System.out.println("3: View offers on Items");
 			System.out.println("4: View Payments");
-			System.out.println("Exit");
+			System.out.println("5: Exit");
 			String input = sc.nextLine();
 			switch(input){
 			case "1":
