@@ -36,6 +36,7 @@ public class Offer {
 		this.amount = amount;
 	}
 
+	
 	public int getOfferId() {
 		return offerId;
 	}
@@ -60,12 +61,12 @@ public class Offer {
 		return customerEmail;
 	}
 
-
-	public void setCustomerId(String customerEmail) {
+	
+	public void setCustomerEmail(String customerEmail) {
 		this.customerEmail = customerEmail;
 	}
 
-
+	
 	public float getAmount() {
 		return amount;
 	}

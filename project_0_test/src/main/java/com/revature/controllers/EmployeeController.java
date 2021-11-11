@@ -6,11 +6,13 @@ import com.revature.models.Item;
 import com.revature.services.ItemServices;
 import com.revature.models.Offer;
 import com.revature.services.OfferServices;
+import com.revature.repositories.OfferPostgres;
 import com.revature.services.EmployeeServices;
 
 public class EmployeeController {
 	
 	private static ItemServices its = new ItemServices();
+	private static OfferServices os = new OfferServices();
 	
 	public static void employeeMenu(Scanner sc) {
 		// print out menu
@@ -20,7 +22,7 @@ public class EmployeeController {
 			System.out.println("Employee Menu");
 			System.out.println("1: Add an item to the shop");
 			System.out.println("2: Remove an item to the shop");
-			System.out.println("3: View offers on Items");
+			System.out.println("3: View Offers on Items");
 			System.out.println("4: View Payments");
 			System.out.println("5: Exit");
 			String input = sc.nextLine();
@@ -104,12 +106,13 @@ public class EmployeeController {
 			int offerId = sc.nextInt();
 			sc.nextLine();
 			// sql query to change accepted to true where offerId = ?
-			OfferServices.update(Offer o);
+			os.update();
+			viewOffers(sc);
 		} else if (input.equals("2")) {
 			System.out.println("What Offer Would You Like To Reject");
 			int offerId = sc.nextInt();
 			sc.nextLine();
-			OfferServices.update();
+			os.update();
 			viewOffers(sc);
 		} else {
 			employeeMenu(sc);

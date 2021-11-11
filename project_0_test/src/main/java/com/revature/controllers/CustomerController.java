@@ -30,7 +30,6 @@ public class CustomerController {
 			case "1":
 				// view shop method
 				System.out.println("Browse Our Wares Andventurer!");
-				flag = false;
 				shopInventory(sc);
 				break;
 			case "2":
@@ -67,6 +66,7 @@ public class CustomerController {
 		System.out.println("Please Enter the Item Number For the Item You Would Like to Place an Offer For:");
 		System.out.println("Or Press 0 to Return to the Customer Menu:");
 		int itemId = sc.nextInt();
+		sc.nextLine();
 		if(itemId == 0){
 			System.out.println("Please Enter a Valid Item Number");
 			customerMenu(sc);
@@ -74,9 +74,10 @@ public class CustomerController {
 			//change moveToCart to add an offer to the database
 			System.out.println("Enter Your Email:");
 			String customerEmail = sc.nextLine();
-			sc.nextLine();
+
 			System.out.println("How Much Would You Like To Offer?");
 			float amount = sc.nextFloat();
+			sc.nextLine();
 			boolean accepted = false;
 			Offer o = new Offer(itemId, customerEmail, amount, accepted);
 			accepted = false;
