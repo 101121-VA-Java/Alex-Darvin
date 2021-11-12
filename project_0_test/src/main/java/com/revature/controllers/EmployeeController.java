@@ -1,10 +1,5 @@
 package com.revature.controllers;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,10 +7,8 @@ import com.revature.models.Item;
 import com.revature.services.ItemServices;
 import com.revature.models.Offer;
 import com.revature.services.OfferServices;
-import com.revature.util.ConnectionUtil;
 import com.revature.repositories.ItemPostgres;
 import com.revature.repositories.OfferPostgres;
-import com.revature.services.EmployeeServices;
 
 public class EmployeeController {
 	
@@ -69,6 +62,8 @@ public class EmployeeController {
 	}
 	
 	public static void addItemToShop(Scanner sc) {
+		its.showInventory();
+		System.out.println();
 		System.out.println("Input the name:");
 		String name = sc.nextLine();
 		System.out.println("Input the price of the item:");
@@ -103,9 +98,7 @@ public class EmployeeController {
 			itemPostgres.remove(i);
 			System.out.println("Item Has Been Removed From the Shop!");
 		}
-		//		if(i != null) {
-//			System.out.println("Product Remaining: " + i.getName() + " " + i.getPrice() + " " + i.getAvailable());
-//		}
+
 		employeeMenu(sc);
 	}
 	
