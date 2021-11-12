@@ -106,11 +106,10 @@ public class Offer {
 				&& itemId == other.itemId && offerAccepted == other.offerAccepted && offerId == other.offerId;
 	}
 
-
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return "Offer [offerId=" + offerId + ", itemId=" + itemId + ", customerEmail=" + customerEmail + ", amount="
+				+ amount + ", offerAccepted=" + offerAccepted + "]";
 	}
 	
 

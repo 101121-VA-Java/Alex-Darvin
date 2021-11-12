@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Customer;
+import com.revature.models.Offer;
 import com.revature.util.ConnectionUtil;
 
 public class CustomerPostgres implements CustomerDao {
@@ -65,6 +66,35 @@ public class CustomerPostgres implements CustomerDao {
 			e.printStackTrace();
 		}
 		return customers;
+	}
+	
+	public static List<Offer> getOffers(String email) {
+		// TODO Auto-generated method stub
+		String sql = "select * from offers where customerEmail = " + "'" + email + "';";
+		List<Offer> offers = new ArrayList<>();
+
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+
+			while (rs.next()) {
+				int offerId = rs.getInt("offerId");
+				String customerEmail = rs.getString("customerEmail");
+				int itemId = rs.getInt("itemId");
+				float amount = rs.getFloat("amount");
+				boolean accepted = rs.getBoolean("accepted");
+				
+
+			Offer newOffer = new Offer(offerId, itemId, customerEmail, amount, accepted);
+			offers.add(newOffer);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return offers;
 	}
 	
 	@Override
@@ -144,13 +174,13 @@ public class CustomerPostgres implements CustomerDao {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		CustomerPostgres cp = new CustomerPostgres();
-		
-		Customer customer = new Customer("AA", "test@test.com", "123");
-		cp.add(customer);
-		
-		Customer c = cp.getByID(1);
-		System.out.println(c.getEmail());
-	}
+//	public static void main(String[] args) {
+//		CustomerPostgres cp = new CustomerPostgres();
+//		
+//		Customer customer = new Customer("AA", "test@test.com", "123");
+//		cp.add(customer);
+//		
+//		Customer c = cp.getByID(1);
+//		System.out.println(c.getEmail());
+//	}
 }

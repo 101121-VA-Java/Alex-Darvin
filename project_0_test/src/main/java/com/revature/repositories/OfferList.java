@@ -32,15 +32,9 @@ public class OfferList implements OfferDao{
 	}
 
 	@Override
-	public Offer getByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean update(Offer o) {
-		// TODO Auto-generated method stub
-		return false;
+		//TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override

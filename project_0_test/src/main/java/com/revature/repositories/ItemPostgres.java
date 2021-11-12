@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.revature.models.Item;
 import com.revature.util.ConnectionUtil;
@@ -96,21 +97,19 @@ public class ItemPostgres implements ItemDao {
 
 	@Override
 	public Item add(Item item) {
-		String sql = "insert into items (i_name, i_price, i_available) "
-				+ "values (?, ?, ?) returning i_id;";
+		String sql = "insert into items (i_name, i_price, i_offers_made, i_available) "
+				+ "values (?, ?, 'Available', ?) returning i_id;";
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
-			PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setString(1, item.getName());
 			ps.setDouble(2, item.getPrice());
 			ps.setInt(3, item.getAvailable());
 
-
-			int n = ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
+			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				item.setItemID(rs.getInt(1));
+				item.setItemID(rs.getInt("i_id"));
 			}
 			
 //			System.out.println("Recieve + " + item.getItemID());
@@ -163,6 +162,69 @@ public class ItemPostgres implements ItemDao {
 			return Items;
 		}
 
+	}
+	
+	public static boolean reduceStock(int id) {
+		
+		// TODO Auto-generated method stub
+		
+		boolean result = false;
+		
+		String sql = "update items set i_available = i_available -1 where i_id = ?";
+		int rs = -1;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, id);
+			rs = ps.executeUpdate();			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(rs > 0) {
+			result = true;
+		} else {
+			result = false;
+		}
+			
+		return result;
+		
+	}
+	
+public static boolean reorganizeInventory(int id, int available) {
+		
+		// TODO Auto-generated method stub
+		
+		boolean result = false;
+		
+		String sql = "update items set i_available = ? where i_id = ?";
+		int rs = -1;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, available);
+			ps.setInt(2, id);
+			rs = ps.executeUpdate();			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(rs > 0) {
+			result = true;
+		} else {
+			result = false;
+		}
+			
+		return result;
+		
 	}
 
 	@Override

@@ -1,11 +1,19 @@
 package com.revature.controllers;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.models.Item;
 import com.revature.services.ItemServices;
 import com.revature.models.Offer;
 import com.revature.services.OfferServices;
+import com.revature.util.ConnectionUtil;
+import com.revature.repositories.ItemPostgres;
 import com.revature.repositories.OfferPostgres;
 import com.revature.services.EmployeeServices;
 
@@ -13,6 +21,7 @@ public class EmployeeController {
 	
 	private static ItemServices its = new ItemServices();
 	private static OfferServices os = new OfferServices();
+	private static ItemPostgres itemPostgres = new ItemPostgres();
 	
 	public static void employeeMenu(Scanner sc) {
 		// print out menu
@@ -39,8 +48,8 @@ public class EmployeeController {
 				break;
 			case "3":
 				System.out.println("View Offers For Items");
-				flag = false;
 				viewOffers(sc);
+				sc.nextLine();
 				break;
 			case "4":
 				System.out.println("View Payments");
@@ -78,45 +87,62 @@ public class EmployeeController {
 	}
 	
 	public static void removeItemFromShop(Scanner sc) {
-		System.out.println("Input the item you would like to remove:");
-		String name = sc.nextLine();
-		System.out.println("Input the amount in inventory you would like to remove:");
+		its.showInventory();
+		System.out.println("Input Item ID:");
+		int id = sc.nextInt();
+		System.out.println("How Many do you want remaining?:");
 		int available = sc.nextInt();
 		sc.nextLine();
-		Item i = new Item(name, available);
-		i = its.removeItem(i);
-		System.out.println("Successfully Removed Item.");	
-		if(i != null) {
-			System.out.println("Product Remaining: " + i.getName() + " " + i.getPrice() + " " + i.getAvailable());
+		Item i = new Item(id, available);
+		if(available > 0) {
+			ItemPostgres.reorganizeInventory(id, available);
+			System.out.println("Successfully Reduced Inventory.");	
+
+		} else if (available == 0) {
+			
+			itemPostgres.remove(i);
+			System.out.println("Item Has Been Removed From the Shop!");
 		}
+		//		if(i != null) {
+//			System.out.println("Product Remaining: " + i.getName() + " " + i.getPrice() + " " + i.getAvailable());
+//		}
 		employeeMenu(sc);
 	}
 	
 	public static void viewOffers(Scanner sc) {
-		its.showOffers();
+		List<Offer> offers = OfferServices.getAll();
+		for (Offer o : offers) {
+			System.out.println(o);
+		}
 		System.out.println();
-		System.out.print("To Accept an Offer Press 1");
-		System.out.print("To Reject an Offer Press 2");
-		System.out.print("To Return to the Main Menu Press 3:");
+		System.out.println("To Accept an Offer Press 1");
+		System.out.println("To Reject an Offer Press 2");
+		System.out.println("To Return to the Main Menu Press 3:");
 		System.out.println();
 		String input = sc.nextLine();
 		if(input.equals("1")) {
-			System.out.println("Which Offer You Would Like To Accept");
 			OfferServices.getAll();
-			int offerId = sc.nextInt();
-			sc.nextLine();
-			// sql query to change accepted to true where offerId = ?
-			os.update();
-			viewOffers(sc);
+			
+			System.out.println("Enter Offer ID:");
+			int id = sc.nextInt();
+			System.out.println("Enter Item ID:");
+			int itemId = sc.nextInt();
+			System.out.println("Pending Offer Approval...");
+
+			OfferPostgres.updateById(id, itemId);
+			ItemPostgres.reduceStock(itemId);
+
 		} else if (input.equals("2")) {
 			System.out.println("What Offer Would You Like To Reject");
 			int offerId = sc.nextInt();
-			sc.nextLine();
-			os.update();
-			viewOffers(sc);
-		} else {
-			employeeMenu(sc);
-		}
+			Offer temp = OfferPostgres.getByID(offerId);
+			if(temp.isOfferAccepted() == false) {
+				OfferPostgres.removeById(offerId);
+			}else {
+				System.out.println("Can't Remove An Accepted Offer");
+			}	
+			
+		} 
 	}
 	
 	public static void viewPayments(Scanner sc) {

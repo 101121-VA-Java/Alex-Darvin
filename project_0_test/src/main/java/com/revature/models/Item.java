@@ -17,6 +17,11 @@ public class Item {
 		this(name, 0, null, available);
 	}
 	
+	
+	public Item(int itemID) {
+		this.itemID = itemID;
+	}
+	
 	public Item(String name, double price, String offersMade, int available) {
 		super();
 		this.name = name;
@@ -34,6 +39,12 @@ public class Item {
 		this.customerID = customerID;
 	}
 	
+	public Item(int itemID, int available) {
+		// TODO Auto-generated constructor stub
+		this.itemID = itemID;
+		this.available = available;
+	}
+
 	public int getCustomerID() {
 		return customerID;
 	}

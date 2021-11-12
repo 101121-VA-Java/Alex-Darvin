@@ -1,9 +1,11 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.models.Item;
 import com.revature.models.Offer;
+import com.revature.repositories.CustomerPostgres;
 import com.revature.services.OfferServices;
 import com.revature.services.ItemServices;
 import com.revature.services.CustomerServices;
@@ -21,7 +23,7 @@ public class CustomerController {
 			System.out.println();
 			System.out.println("Welcome to the Adventurers' Shop!:");
 			System.out.println("1: View Shop");
-			System.out.println("2: View Your Cart");
+			System.out.println("2: View Your Offers");
 			System.out.println("3: View Your Order History");
 			System.out.println("4: Log Out");
 			
@@ -34,8 +36,14 @@ public class CustomerController {
 				break;
 			case "2":
 				// View Cart
-				System.out.println("Viewing Your Cart:");
-				flag = false;
+				System.out.println("Viewing Your Offer:");
+				System.out.println("Enter Your email:");
+				String email = sc.nextLine();
+					
+				List<Offer> offers = CustomerPostgres.getOffers(email);
+				for(Offer o : offers) {
+					System.out.println(o);
+				}
 //				viewCart();
 				break;
 			case "3":
