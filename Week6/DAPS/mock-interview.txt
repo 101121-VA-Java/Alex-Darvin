@@ -1,0 +1,71 @@
+DAPS
+
+
+atience - Interviewer: Dean
+ - What is AJAX?
+    - it is a way to make a request in JS using XMLHTTPrequest
+    - GET POST PUT... (Missing DELETE)
+
+ - Does AJAX have ready states?
+    - yes, states 1-4 and they each reference the state of the method/function
+
+ - What does DOM stand for? what is it?
+    - Document Object Model.  Tree-like structure of HTML
+
+ - What is the root of an HTML page?
+    - HTML tag
+
+ - What are the 4 things you need in an HTML page
+    - HTML, head, body, title:(don't think we went over this?)
+ - What is the difference between the head and header tags?
+    - head tag has links for other pages, libraries, and any imports
+    - header tag has different types of tags, h1 - h6.  h1 is largest sized element, h6 is smallest.
+
+Dean - Interviewer:  Alex
+ - What is function and variable hoisting?
+   - Answer : you can pass a function into a  function as a parameter, and as far as 
+hoisting is concerned in that aspect the variables information are available at the top most of the scope. 
+ - Question 2: List some ways of querying the DOM for elements
+   - Answer: It's referencing tags within the DOM. 
+ - Can you give me an example of how you would target an element?
+   - you can either go by class if you have a set of multiple things you want to target you would call the class. 
+   - If you want to target a specific element you would use the ID.
+ - Question 3:  What exactly is a semantic element?
+   - they are a new thing in html5, the purpose is to make web pages more adaptable, for example
+   - article is a semantic element which is a new thing and has its own tag.
+   - it essentially provides more meaning to a webpage instead of having everything in the body with multiple divs.
+ - Question 4: What tags would I use to create a navigation bar / form?
+   - navigation bar would have its own tag, form has its own tag as well, starting with form
+   - form breaks down into much more items such as text fields, labels and buttons. 
+ - How would I make a text field for the navigation bar?
+   - to do that you would open it up with form and then i believe a button tag needs to be nested within the form. 
+   - Using the label, id you can target it with javascript. 
+   - For the text fields they are  input type so the tag would be input, you would also have id, class if you want to target it globally and put a placeholder property that will have a default value.
+
+Sam - Interviewer: Patience
+ - What is the difference between class and id?
+    - You can have multiple of the same class in different elements, id is meant to be unique - not repeated anywhere else.
+
+ - what is the CSS box model?
+    - Defines how an element is displayed on the browser, starts with content, border, padding, margin
+
+ - What are callback functions?
+    - Functions that are asynchronous and doesn't receive a response immediately, gets a callback with a response.
+    - Can check if the response has been received or not.
+
+ - What does HTTP stand for
+    - Hypertext Transfer Protocol.
+
+Alex - Interviewer: Sam
+- What is java script and what is It for?
+    - Allows for functions for web pages – 
+
+- What are arrays in JS, can you change size?
+    - Arrays are objects are their own class. Did not answer on dynamic size
+
+- What is the comment syntax in html
+   - Struggling… I don’t remember “/--”
+   - confused /* with CSS comment syntax
+
+- What is JSON 
+    - Good answer solid

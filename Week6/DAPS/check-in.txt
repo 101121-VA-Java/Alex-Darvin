@@ -1,0 +1,24 @@
+Patience
+    - Studying for QC
+    - Working on the backend for the project to test login function for user and admin
+    - working out user relationship between admin and employee for login functionality
+    - starting frontend work for project
+    - blocker: relationship/ functionality of employee and admin
+
+Sam
+    - set up templates for layers
+    - working on fronted login page
+    - setting up backend 
+    - planning out setup for HTTP requests through backend API
+    - blocker: difficulty operating/using API in Java
+
+Dean
+    - made login pages for the user and admin for project, based off kevin's template
+    - planning on working on interface pages for admin and user once logged in
+    - figuring out how to levarage a web page in a java application
+    - blocker: difficulty operating/using API in Java
+Alex
+    - working on making landing page for project today, play around with CSS
+    - plan out templates, structure for application after logging in
+    - studying for QC
+    - blockers: writing out functionality differences between employee and admin, procrastination
