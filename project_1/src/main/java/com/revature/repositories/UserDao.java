@@ -1,10 +1,8 @@
 package com.revature.repositories;
 
-
-import com.revature.models.Reimbursement;
 import com.revature.models.User;
 
-public interface UserDao {
+public interface UserDao extends GenericDao<User> {
 
 	boolean loginUser (User u);
 	

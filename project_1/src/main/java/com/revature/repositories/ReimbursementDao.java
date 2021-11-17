@@ -15,5 +15,6 @@ public interface ReimbursementDao {
 	boolean updateRequest(Reimbursement r);
 	Reimbursement viewResolvedRequests();
 	Reimbursement viewRequest(User u);
+	Reimbursement add(Reimbursement u);
 
 }
