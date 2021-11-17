@@ -2,21 +2,20 @@ package com.revature.models;
 
 import java.util.Objects;
 
-public class Roles {
+public class Type {
 	private int id;
-	private String role;
+	private String type;
 	
 	
-	public Roles() {
+	public Type() {
 		super();
 	}
 	
-	public Roles(int id, String role) {
+	public Type(int id, String type) {
 		super();
 		this.id = id;
-		this.role = role;
+		this.type = type;
 	}
-	
 	
 	public int getId() {
 		return id;
@@ -26,17 +25,17 @@ public class Roles {
 		this.id = id;
 	}
 	
-	public String getRole() {
-		return role;
+	public String getType() {
+		return type;
 	}
 	
-	public void setRole(String role) {
-		this.role = role;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, role);
+		return Objects.hash(id, type);
 	}
 	
 	@Override
@@ -47,12 +46,13 @@ public class Roles {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Roles other = (Roles) obj;
-		return id == other.id && Objects.equals(role, other.role);
+		Type other = (Type) obj;
+		return id == other.id && Objects.equals(type, other.type);
 	}
+	
 	@Override
 	public String toString() {
-		return "Roles [id=" + id + ", role=" + role + "]";
+		return "Type [id=" + id + ", type=" + type + "]";
 	}
 	
 }
