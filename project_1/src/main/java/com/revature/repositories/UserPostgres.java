@@ -9,165 +9,206 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Roles;
+import com.revature.repositories.UserDao;
+import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
-public class UserPostgres implements UserDao{
+public class UserPostgres implements UserDao {
 
-	@Override
-	public User add(User u) {
-		User newGuy = u;
-		String sql = "insert into ERS_USERS (ERS_USERNAME, ERS_PASSWORD, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_ROLE_ID) values (?, ?, ?, ?, ?, ?) returning ERS_USERS_ID;";
-		
-		try(Connection con = ConnectionUtil.getConnectionFromFile()){
-			PreparedStatement ps = con.prepareStatement(sql);
-			
-			ps.setString(1, u.getUsername());
-			ps.setString(2, u.getPassword());
-			ps.setString(3, u.getFirstName());
-			ps.setString(4, u.getLastName());
-			ps.setString(5, u.getEmail());
-			ps.setInt(6, u.getUserId());
-			
-			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				newGuy.setUserId(rs.getInt("ERS_USERS_ID"));
-			}
-		}
-		catch (SQLException | IOException e) {
-			e.printStackTrace();
-		}
-		return newGuy;
-
+	public UserPostgres() {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public List<User> getAll() {
-		String sql = "select * from ERS_USERS;";
-		List<User> Users = new ArrayList<>();
+		List<User> ers_users = new ArrayList<>();
+		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id;";
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
-			
-			while(rs.next()) {
-				int id = rs.getInt("USER_ROLE_ID");
-				String username = rs.getString("ERS_USERNAME");
-				String password = rs.getString("ERS_PASSWORD");
-				String firstName = rs.getString("USER_FIRST_NAME");
-				String lastName = rs.getString("USER_LAST_NAME");
-				String email = rs.getString("USER_EMAIL");
-				int roleId = rs.getInt("USER_ROLE_ID");
-				
-				
-				User newUser = new User(id, username, password, firstName, lastName, email, new Role(roleId));
-				Users.add(newUser);
+
+			while (rs.next()) {
+				int ers_users_id = rs.getInt("ers_users_id");
+				String user_first_name = rs.getString("user_first_name");
+				String user_last_name = rs.getString("user_last_name");
+				String ers_username = rs.getString("ers_username");
+				String ers_password = rs.getString("ers_password");
+				String user_email = rs.getString("user_email");
+				int user_role_id = rs.getInt("user_role_id");
+				String user_role = rs.getString("user_role");
+
+				User newUser = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password,
+						user_email, new Role(user_role_id, user_role)); // need to add role
+				ers_users.add(newUser);
 			}
-		} catch (IOException | SQLException e) {
-			e.printStackTrace();
-		} 
-		return Users;
+		} catch (SQLException | IOException c) {
+			c.printStackTrace();
+		}
+		return ers_users;
 	}
 
-	@Override
 	public User getById(int id) {
-		String sql = "select * from ERS_USERS where USER_ROLE_ID = ?;";
+		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id where ers_users_id = ?;";
 		User use = null;
-		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setInt(1, id);
+			ps.setInt(1, id); // 1 refers to the first '?'
+
 			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				int userId = rs.getInt("USER_ROLE_ID");
-				String username = rs.getString("ERS_USERNAME");
-				String password = rs.getString("ERS_PASSWORD");
-				String firstName = rs.getString("USER_FIRST_NAME");
-				String lastName = rs.getString("USER_LAST_NAME");
-				String email = rs.getString("USER_EMAIL");
-				int roleId = rs.getInt("USER_ROLE_ID");
-				
-				use = new User(userId, username, password, firstName, lastName, email, new Role(roleId));
-				
+
+			if (rs.next()) {
+				int ers_users_id = rs.getInt("ers_users_id");
+				String user_first_name = rs.getString("user_first_name");
+				String user_last_name = rs.getString("user_last_name");
+				String ers_username = rs.getString("ers_username");
+				String ers_password = rs.getString("ers_password");
+				String user_email = rs.getString("user_email");
+				int user_role_id = rs.getInt("user_role_id");
+				String user_role = rs.getString("user_role");
+
+				use = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password, user_email,
+						new Role(user_role_id, user_role)); // add role
 			}
-		} 
-		catch (IOException | SQLException e) {
-			e.printStackTrace();
-		} 
+		} catch (SQLException | IOException c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
 		return use;
 	}
 
-	@Override
-	public boolean remove(User u) {
-		int rs = -1;
-		String sql = "delete from ERS_USERS where USER_ROLE_ID = ?;";
-		
-		try(Connection con = ConnectionUtil.getConnectionFromFile()){
+	public User add(User u) {
+		int genId = -1;
+		String sql = "insert into ers_users (user_first_name, user_last_name, ers_username, ers_password, user_email, user_role_id)"
+				+ "values (?, ?, ?, ?, ?, ?) returning ers_users_id;";
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
-			
-			ps.setInt(1, u.getUserId());
-			rs = ps.executeUpdate();
-			
+
+			ps.setString(1, u.getFirstName());
+			ps.setString(2, u.getLastName());
+			ps.setString(3, u.getUsername());
+			ps.setString(4, u.getPassword());
+			ps.setString(5, u.getEmail());
+			ps.setInt(6, u.getRole().getRoleId());
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				genId = rs.getInt("ers_users_id");
+			}
+
+		} catch (SQLException | IOException c1) {
+			// TODO Auto-generated catch block
+			c1.printStackTrace();
 		}
-		catch (SQLException | IOException e) {
-			e.printStackTrace();
-		}
-		if (rs > 0) {
-			return true;
-		}
-		else{
-			return false;
-		}
+		return genId;
 	}
 
-	@Override
+	public boolean edit(User u) {
+		String sql = "update ers_users set user_first_name = ?, user_last_name = ?, ers_username = ?,"
+				+ " ers_password = ?, user_email = ?, user_role_id = ?, where ers_users_id = ?;"; // add role
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			int rowsChanged = -1;
+			ps.setString(1, u.getFirstName());
+			ps.setString(1, u.getLastName());
+			ps.setString(2, u.getUsername());
+			ps.setString(3, u.getPassword());
+			ps.setString(4, u.getEmail());
+			ps.setInt(5, u.getRole().getRoleId()); // find out if I added a new role to the edit function correctly
+			ps.setInt(6, u.getUserId());
+			// add role
+
+			rowsChanged = ps.executeUpdate();
+
+			if (rowsChanged > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException | IOException c1) {
+			c1.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean remove(int id) {
+		String sql = "delete from ers_users where ers_users_id = ?;";
+		int rowsChanged = -1;
+		try (Connection con = ConnectionUtil.getConnectionFromFile();) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			rowsChanged = ps.executeUpdate();
+			if (rowsChanged > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException | IOException c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
+		return false;
+	}
+
+	
 	public boolean update(User u) {
-		int rs = -1;
-		String sql = "update ERS_USERS set roleId where USER_ROLE_ID = ?;";
-		
-		try(Connection con = ConnectionUtil.getConnectionFromFile()){
-			PreparedStatement ps = con.prepareStatement(sql);
-			
-			ps.setInt(1, u.getUserId());
-			rs = ps.executeUpdate();
-			
-		}
-		catch (SQLException | IOException e) {
-			e.printStackTrace();
-		}
-		if (rs > 0) {
-			return true;
-		}
-		else{
-			return false;
-		}
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	@Override
+	
 	public boolean loginUser(User u) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public User viewUserInfo(User u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public User updateUserInfo(User u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public User viewAllEmployees() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	
+	public boolean remove(User u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<User> getAllEmployee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getEmployeeById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User addEmployee(User employee) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateEmployee(User employee) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

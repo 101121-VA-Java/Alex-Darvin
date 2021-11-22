@@ -17,13 +17,6 @@ import com.revature.util.ConnectionUtil;
 
 public class ReimbursementPostgres implements ReimbursementDao{
 
-	@Override
-	public Reimbursement add(Reimbursement u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Reimbursement> getAll() {
 		String sql = "select * from ERS_REIMBURSEMENTS;";
 		List<Reimbursement> Reimbs = new ArrayList<>();
@@ -53,80 +46,98 @@ public class ReimbursementPostgres implements ReimbursementDao{
 		return Reimbs;
 	}
 
-	@Override
+
 	public Reimbursement getById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public boolean remove(Reimbursement o) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+
 	public boolean update(Reimbursement o) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public List<Reimbursement> getAllByUserId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public boolean checkApproved(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public boolean updateApproval(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public boolean submitReimbRequest(Reimbursement r) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public Reimbursement viewPendingReimb(User u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Reimbursement viewResolvedReimb(User u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Reimbursement viewPendingRequests() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public boolean updateRequest(Reimbursement r) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public Reimbursement viewResolvedRequests() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Reimbursement viewRequest(User u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reimbursement> getAllReimb() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reimbursement getReimbById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reimbursement addReimb(Reimbursement reimb) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Reimbursement {
@@ -8,7 +9,7 @@ public class Reimbursement {
 	private double amount;
 	private boolean submitted;
 	private boolean resolved;
-	private boolean description;
+	private String description;
 	private String receipt;	
 	private User author;	
 	private User resolver;
@@ -16,7 +17,7 @@ public class Reimbursement {
 	private Type type_id;
 	
 	
-	public Reimbursement(int id, double amount, boolean submitted, boolean resolved, boolean description,
+	public Reimbursement(int id, double amount, boolean submitted, boolean resolved, String description,
 			String receipt, User author, User resolver, Status status_id, Type type_id) {
 		super();
 		this.id = id;
@@ -29,6 +30,15 @@ public class Reimbursement {
 		this.resolver = resolver;
 		this.status_id = status_id;
 		this.type_id = type_id;
+	}
+
+	public Reimbursement(int id, double amount, boolean submitted, boolean resolved, boolean description, User user, Status status, Type type) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Reimbursement(int id2, double amount2, Timestamp submitted2, Timestamp resolved2, String descrip, User user,
+			User user2, Status status, Type type) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -63,11 +73,11 @@ public class Reimbursement {
 		this.resolved = resolved;
 	}
 	
-	public boolean isDescription() {
+	public String getDescription() {
 		return description;
 	}
 	
-	public void setDescription(boolean description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 	

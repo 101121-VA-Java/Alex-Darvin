@@ -49,4 +49,10 @@ public class UserServices {
 			}
 		throw new LoginException();
 		}
+
+	public User getEmployeeById(int id) {
+		// write method for retrieving employee by id
+		return null;
+	}
+
 }
