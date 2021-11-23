@@ -1,13 +1,13 @@
 package com.revature.controllers;
 
-import com.revature.services.UserServices;
+import com.revature.services.AuthService;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 
 public class AuthController {
 	
-	private static UserServices as = new UserServices();
+	private static AuthService as = new AuthService();
 	
 	public static void login(Context ctx) {
 		// leverages x-www-form-urlencoded which prevents the parameters from being displayed in the url

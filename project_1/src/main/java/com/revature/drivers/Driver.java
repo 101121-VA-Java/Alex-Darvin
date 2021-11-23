@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.drivers;
 
 import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.path;
@@ -6,7 +6,7 @@ import static io.javalin.apibuilder.ApiBuilder.post;
 import static io.javalin.apibuilder.ApiBuilder.put;
 
 import com.revature.controllers.AuthController;
-import com.revature.controllers.EmployeeController;
+import com.revature.controllers.UserController;
 
 import io.javalin.Javalin;
 
@@ -36,20 +36,15 @@ public class Driver {
 		});
 		
 		app.routes(() -> {
-			// /employees
-			path("employees", () -> {
-				get(EmployeeController::getEmployees);
-				post(EmployeeController::registerEmployee);
+			// /users
+			path("users", () -> {
+				get(UserController::getUsers);
+				post(UserController::registerUser);
 				
 				// use brackets to indicate path param name
-				// /employees/{id}
+				// /users/{id}
 				path("{id}", () -> {
-					get(EmployeeController::getEmployeeById);
-					put(EmployeeController::updateEmployeeInfo);
-					
-					// /employees/{id}/admin
-					path("admin", () -> {
-						put(EmployeeController::updateEmployeeInfoAdmin);
+					put(UserController::updateUser);
 					});
 				});
 			});

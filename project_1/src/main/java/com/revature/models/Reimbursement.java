@@ -36,11 +36,6 @@ public class Reimbursement {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reimbursement(int id2, double amount2, Timestamp submitted2, Timestamp resolved2, String descrip, User user,
-			User user2, Status status, Type type) {
-		// TODO Auto-generated constructor stub
-	}
-
 	public int getId() {
 		return id;
 	}
