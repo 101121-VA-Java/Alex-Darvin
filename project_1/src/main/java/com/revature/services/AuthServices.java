@@ -2,18 +2,18 @@ package com.revature.services;
 
 import java.util.Arrays;
 
-import com.revature.daos.DaoFactory;
-import com.revature.daos.EmployeeDao;
-import com.revature.models.Employee;
+import com.revature.repositories.DaoFactory;
+import com.revature.repositories.UserDao;
+import com.revature.models.User;
 import com.revature.models.Role;
 
-public class AuthService {
+public class AuthServices {
 
-	private EmployeeDao ed;
+	private UserDao ud;
 
-	// Retrieving an instance of EmployeeDao
-	public AuthService() {
-		ed = DaoFactory.getDAOFactory().getEmployeeDao();
+	// Retrieving an instance of UserDao
+	public AuthServices() {
+		ud = DaoFactory.getDAOFactory().getUserDao();
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class AuthService {
 		String token = null;
 
 		// retrieves a user based on username passed in
-		Employee principal = ed.getEmployeeByUsername(username);
+		User principal = ud.getUserByUsername(username);
 
 		if (principal != null && principal.getPassword().equals(password)) {
 			/*
@@ -62,7 +62,7 @@ public class AuthService {
 		// retrieve user role
 		Role token_role = Role.valueOf(info[1]);
 		
-		Employee principal = ed.getEmployeeById(token_id);
+		User principal = ud.getUserById(token_id);
 		
 		if(principal != null && token_role.equals(principal.getRole()) 	// Authentication of user: make sure user is logged in
 				&& Arrays.asList(allowedRoles).contains(token_role)) {	// Authorization of user: make sure user has the permissions to use the functionality

@@ -1,4 +1,6 @@
 package com.revature.repositories;
+import com.revature.repositories.ReimbursementDao;
+import com.revature.repositories.UserDao;
 
 public class DaoFactory {
 

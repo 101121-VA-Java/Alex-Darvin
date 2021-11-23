@@ -4,16 +4,16 @@ import java.util.List;
 
 import com.revature.models.Role;
 import com.revature.models.User;
-import com.revature.services.AuthService;
-import com.revature.services.UserService;
+import com.revature.services.AuthServices;
+import com.revature.services.UserServices;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 
 public class UserController {
 
-	private static UserService us = new UserService();
-	private static AuthService as = new AuthService();
+	private static UserServices us = new UserServices();
+	private static AuthServices as = new AuthServices();
 
 	public static void getUsers(Context ctx) {
 		String token = ctx.header("Authorization");				
@@ -21,7 +21,7 @@ public class UserController {
 			List<User> users = us.getUsers();
 			ctx.json(users);
 			ctx.status(HttpCode.OK);
-		} else if(as.checkPermission(token, Role.BASIC)) {
+		} else if(as.checkPermission(token, Role.BASIC_EMPLOYEE)) {
 			getUserById(ctx);
 		} else {
 			ctx.status(HttpCode.UNAUTHORIZED);

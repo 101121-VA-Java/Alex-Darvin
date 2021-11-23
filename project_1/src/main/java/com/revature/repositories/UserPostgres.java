@@ -153,12 +153,6 @@ public class UserPostgres implements UserDao {
 	}
 
 	
-	public boolean update(User u) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
 	public boolean loginUser(User u) {
 		// TODO Auto-generated method stub
 		return false;
@@ -210,5 +204,23 @@ public class UserPostgres implements UserDao {
 	public boolean updateEmployee(User employee) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public int add(User t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(User t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

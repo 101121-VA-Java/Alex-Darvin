@@ -30,14 +30,14 @@ public class ReimbursementPostgres implements ReimbursementDao{
 				double amount = rs.getDouble("REIMB_AMOUNT");
 				Timestamp submitted = rs.getTimestamp("REIMB_SUBMITTED");
 				Timestamp resolved = rs.getTimestamp("REIMB_RESOLVED");
-				String descrip = rs.getString("REIMB_DESCRIPTION");
+				String description = rs.getString("REIMB_DESCRIPTION");
 				int author = rs.getInt("REIMB_AUTHOR");
 				int resolver = rs.getInt("REIMB_RESOLVER");
 				int statusId = rs.getInt("REIMB_STATUS_ID");
 				int typeId = rs.getInt("REMI_TYPE_ID");
 				
 				
-				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, descrip, new User(author), new User(resolver), new Status(statusId), new Type(typeId));
+				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, description, description, new User(author), new User(resolver), new Status(statusId), new Type(typeId));
 				Reimbs.add(newReib);
 			}
 		} catch (IOException | SQLException e) {

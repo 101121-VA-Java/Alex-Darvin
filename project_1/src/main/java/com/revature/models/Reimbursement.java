@@ -7,8 +7,8 @@ public class Reimbursement {
 	
 	private int id;
 	private double amount;
-	private boolean submitted;
-	private boolean resolved;
+	private Timestamp submitted;
+	private Timestamp resolved;
 	private String description;
 	private String receipt;	
 	private User author;	
@@ -17,7 +17,7 @@ public class Reimbursement {
 	private Type type_id;
 	
 	
-	public Reimbursement(int id, double amount, boolean submitted, boolean resolved, String description,
+	public Reimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description,
 			String receipt, User author, User resolver, Status status_id, Type type_id) {
 		super();
 		this.id = id;
@@ -32,9 +32,10 @@ public class Reimbursement {
 		this.type_id = type_id;
 	}
 
-	public Reimbursement(int id, double amount, boolean submitted, boolean resolved, boolean description, User user, Status status, Type type) {
+	public Reimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description, User user, Status status, Type type) {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public int getId() {
 		return id;
@@ -52,19 +53,19 @@ public class Reimbursement {
 		this.amount = amount;
 	}
 	
-	public boolean isSubmitted() {
+	public Timestamp isSubmitted() {
 		return submitted;
 	}
 	
-	public void setSubmitted(boolean submitted) {
+	public void setSubmitted(Timestamp submitted) {
 		this.submitted = submitted;
 	}
 	
-	public boolean isResolved() {
+	public Timestamp isResolved() {
 		return resolved;
 	}
 	
-	public void setResolved(boolean resolved) {
+	public void setResolved(Timestamp resolved) {
 		this.resolved = resolved;
 	}
 	
