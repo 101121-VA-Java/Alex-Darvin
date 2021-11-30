@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.revature.models.Reimbursement;
 
-public interface ReimbursementDao {
-List<Reimbursement> getAllReimb();
-Reimbursement getReimbById(int id);
-Reimbursement addReimb(Reimbursement reimb);
+public interface ReimbursementDao extends GenericDao<Reimbursement>{
+	public List<Reimbursement> getByStatusId(int id);
+	public List<Reimbursement> getByAuthorId(int id);
 }

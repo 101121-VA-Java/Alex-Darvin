@@ -45,13 +45,12 @@ public class Driver {
 				// /users/{id}
 				path("{id}", () -> {
 					put(UserController::updateUser);
-					});
 				});
 			});
+		});
 			// /auth
-			path("auth", () ->{
-				post(AuthController::login);
-			});
+		path("auth", () ->{
+			post(AuthController::login);
 		});
 	}
 

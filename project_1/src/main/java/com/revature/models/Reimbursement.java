@@ -1,127 +1,127 @@
 package com.revature.models;
 
 import java.sql.Timestamp;
-import java.util.Objects;
 
 public class Reimbursement {
-	
 	private int id;
 	private double amount;
-	private Timestamp submitted;
-	private Timestamp resolved;
+	private Timestamp submit;
+	private Timestamp resolve;
 	private String description;
-	private String receipt;	
-	private User author;	
+	private User author;
 	private User resolver;
-	private Status status_id;
-	private Type type_id;
-	
-	
-	public Reimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description,
-			String receipt, User author, User resolver, Status status_id, Type type_id) {
+	private Status status;
+	private Type type;
+
+	public Reimbursement() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Reimbursement(int id, double amount, Timestamp submit, Timestamp resolve, String description,
+			User author, User resolver, Status status, Type type) {
 		super();
 		this.id = id;
 		this.amount = amount;
-		this.submitted = submitted;
-		this.resolved = resolved;
+		this.submit = submit;
+		this.resolve = resolve;
 		this.description = description;
-		this.receipt = receipt;
 		this.author = author;
 		this.resolver = resolver;
-		this.status_id = status_id;
-		this.type_id = type_id;
+		this.status = status;
+		this.type = type;
 	}
 
-	public Reimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description, User user, Status status, Type type) {
-		// TODO Auto-generated constructor stub
-	}
-	
-
-	public int getId() {
+	public int getReimId() {
 		return id;
 	}
-	
-	public void setId(int id) {
+
+	public void setReimId(int id) {
 		this.id = id;
 	}
-	
-	public double getAmount() {
+
+	public double getReimAmount() {
 		return amount;
 	}
-	
-	public void setAmount(double amount) {
+
+	public void setReimAmount(double amount) {
 		this.amount = amount;
 	}
-	
-	public Timestamp isSubmitted() {
-		return submitted;
+
+	public Timestamp getSubmit() {
+		return submit;
 	}
-	
-	public void setSubmitted(Timestamp submitted) {
-		this.submitted = submitted;
+
+	public void setSubmit(Timestamp submit) {
+		this.submit = submit;
 	}
-	
-	public Timestamp isResolved() {
-		return resolved;
+
+	public Timestamp getResolve() {
+		return resolve;
 	}
-	
-	public void setResolved(Timestamp resolved) {
-		this.resolved = resolved;
+
+	public void setResolve(Timestamp resolve) {
+		this.resolve = resolve;
 	}
-	
-	public String getDescription() {
+
+	public String getDescrip() {
 		return description;
 	}
-	
-	public void setDescription(String description) {
+
+	public void setDescrip(String description) {
 		this.description = description;
 	}
-	
-	public String getReceipt() {
-		return receipt;
-	}
-	
-	public void setReceipt(String receipt) {
-		this.receipt = receipt;
-	}
-	
+
 	public User getAuthor() {
 		return author;
 	}
-	
+
 	public void setAuthor(User author) {
 		this.author = author;
 	}
-	
+
 	public User getResolver() {
 		return resolver;
 	}
-	
+
 	public void setResolver(User resolver) {
 		this.resolver = resolver;
 	}
-	
-	public Status getStatus_id() {
-		return status_id;
+
+	public Status getStatus() {
+		return status;
 	}
-	
-	public void setStatus_id(Status status_id) {
-		this.status_id = status_id;
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
-	
-	public Type getType_id() {
-		return type_id;
+
+	public Type getType() {
+		return type;
 	}
-	
-	public void setType_id(Type type_id) {
-		this.type_id = type_id;
+
+	public void setType(Type type) {
+		this.type = type;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, author, description, id, receipt, resolved, resolver, status_id, submitted,
-				type_id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(amount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + id;
+		result = prime * result + ((resolve == null) ? 0 : resolve.hashCode());
+		result = prime * result + ((resolver == null) ? 0 : resolver.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((submit == null) ? 0 : submit.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -131,18 +131,52 @@ public class Reimbursement {
 		if (getClass() != obj.getClass())
 			return false;
 		Reimbursement other = (Reimbursement) obj;
-		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
-				&& Objects.equals(author, other.author) && description == other.description && id == other.id
-				&& Objects.equals(receipt, other.receipt) && resolved == other.resolved
-				&& Objects.equals(resolver, other.resolver) && Objects.equals(status_id, other.status_id)
-				&& submitted == other.submitted && Objects.equals(type_id, other.type_id);
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+			return false;
+		if (id != other.id)
+			return false;
+		if (resolve == null) {
+			if (other.resolve != null)
+				return false;
+		} else if (!resolve.equals(other.resolve))
+			return false;
+		if (resolver == null) {
+			if (other.resolver != null)
+				return false;
+		} else if (!resolver.equals(other.resolver))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (submit == null) {
+			if (other.submit != null)
+				return false;
+		} else if (!submit.equals(other.submit))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
-				+ ", description=" + description + ", receipt=" + receipt + ", author=" + author + ", resolver="
-				+ resolver + ", status_id=" + status_id + ", type_id=" + type_id + "]";
+		return "Reimbursement [id=" + id + ", amount=" + amount + ", submit=" + submit + ", resolve="
+				+ resolve + ", description=" + description + ", author=" + author + ", resolver=" + resolver + ", status="
+				+ status + ", type=" + type + "]";
 	}
-	
 }

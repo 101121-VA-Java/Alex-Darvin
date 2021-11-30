@@ -20,6 +20,7 @@ public class UserPostgres implements UserDao {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public List<User> getAll() {
 		List<User> ers_users = new ArrayList<>();
 		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id;";
@@ -48,13 +49,14 @@ public class UserPostgres implements UserDao {
 		return ers_users;
 	}
 
+	@Override
 	public User getById(int id) {
 		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id where ers_users_id = ?;";
 		User use = null;
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setInt(1, id); // 1 refers to the first '?'
+			ps.setInt(1, id);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -77,8 +79,40 @@ public class UserPostgres implements UserDao {
 		}
 		return use;
 	}
+	
+	public User getByUsername(String username) {
+		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id where ers_username = ?;";
+		User use = null;
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
 
-	public User add(User u) {
+			ps.setString(1, username);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int ers_users_id = rs.getInt("ers_users_id");
+				String user_first_name = rs.getString("user_first_name");
+				String user_last_name = rs.getString("user_last_name");
+				String ers_username = rs.getString("ers_username");
+				String ers_password = rs.getString("ers_password");
+				String user_email = rs.getString("user_email");
+				int user_role_id = rs.getInt("user_role_id");
+				String user_role = rs.getString("user_role");
+
+				use = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password, user_email,
+						new Role(user_role_id, user_role));
+			}
+		} catch (SQLException | IOException c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
+		return use;
+	}
+	
+
+	@Override
+	public int add(User u) {
 		int genId = -1;
 		String sql = "insert into ers_users (user_first_name, user_last_name, ers_username, ers_password, user_email, user_role_id)"
 				+ "values (?, ?, ?, ?, ?, ?) returning ers_users_id;";
@@ -105,20 +139,20 @@ public class UserPostgres implements UserDao {
 		return genId;
 	}
 
+	@Override
 	public boolean edit(User u) {
 		String sql = "update ers_users set user_first_name = ?, user_last_name = ?, ers_username = ?,"
-				+ " ers_password = ?, user_email = ?, user_role_id = ?, where ers_users_id = ?;"; // add role
+				+ " ers_password = ?, user_email = ?, user_role_id = ? where ers_users_id = ?;"; // add role
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 			int rowsChanged = -1;
 			ps.setString(1, u.getFirstName());
-			ps.setString(1, u.getLastName());
-			ps.setString(2, u.getUsername());
-			ps.setString(3, u.getPassword());
-			ps.setString(4, u.getEmail());
-			ps.setInt(5, u.getRole().getRoleId()); // find out if I added a new role to the edit function correctly
-			ps.setInt(6, u.getUserId());
-			// add role
+			ps.setString(2, u.getLastName());
+			ps.setString(3, u.getUsername());
+			ps.setString(4, u.getPassword());
+			ps.setString(5, u.getEmail());
+			ps.setInt(6, u.getRole().getRoleId());
+			ps.setInt(7, u.getId());
 
 			rowsChanged = ps.executeUpdate();
 
@@ -133,7 +167,8 @@ public class UserPostgres implements UserDao {
 		return false;
 	}
 
-	public boolean remove(int id) {
+	@Override
+	public boolean deleteById(int id) {
 		String sql = "delete from ers_users where ers_users_id = ?;";
 		int rowsChanged = -1;
 		try (Connection con = ConnectionUtil.getConnectionFromFile();) {
@@ -150,66 +185,6 @@ public class UserPostgres implements UserDao {
 			c.printStackTrace();
 		}
 		return false;
-	}
-
-	
-	public boolean loginUser(User u) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-	public User viewUserInfo(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	public User updateUserInfo(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	public User viewAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	public boolean remove(User u) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<User> getAllEmployee() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User getEmployeeById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User addEmployee(User employee) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean updateEmployee(User employee) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int add(User t) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override

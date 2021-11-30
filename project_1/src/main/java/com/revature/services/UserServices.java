@@ -1,58 +1,59 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.revature.exceptions.EmployeeExistsException;
-import com.revature.exceptions.LoginException;
-import com.revature.models.User;
+import com.revature.repositories.DaoFactory;
 import com.revature.repositories.UserDao;
-import com.revature.repositories.UserPostgres;
+import com.revature.exceptions.EmployeeExistsException;
+import com.revature.models.Role;
+import com.revature.models.User;
 
 public class UserServices {
-	
-	private UserDao ud = new UserPostgres();
-	
-	public List<User> getAllUser(){
-		return ud.getAllEmployee();
-		
+	private UserDao cd;
+
+	public UserServices() {
+		cd = DaoFactory.getDAOFactory().getUserDao();
 	}
-	
-	public User addEmployee(User employee) throws EmployeeExistsException {
-		User newEmp = this.getEmployeeByUsername(employee.getUsername());
-		if(newEmp != null) {
-			throw new EmployeeExistsException();
+
+	public List<User> getUsers() {
+		List<User> users = cd.getAll().stream().map(u -> {
+			u.setPassword(null);
+			return u;
+		}).collect(Collectors.toList());
+		return users;
+	}
+
+	public User getUserById(int id) {
+		User u = cd.getById(id);
+		if (u != null) {
+			u.setPassword(null);
 		}
-		return ud.addEmployee(employee);
+		return u;
 	}
-	
-	private User getEmployeeByUsername(String username) {
-		List<User> employees = ud.getAllEmployee();
-		for(User e : employees) {
-			if(e.getUsername().equals(username)) {
-				return e;
+
+	public int addUser(User c) throws EmployeeExistsException {
+		for (User all : cd.getAll()) {
+			if (c.getUsername().equals(all.getUsername())) {
+				throw new EmployeeExistsException();
+			}
+		}
+		c.setRole(new Role(1)); // need to add the correct object here
+		return cd.add(c);
+	}
+
+	public User getUserByUAP(String username, String password) {
+		User validCustomer = new User(username, password);
+		for (User all : cd.getAll()) {
+			if (validCustomer.getUsername().equals(all.getUsername())
+					&& validCustomer.getPassword().equals(all.getPassword())) {
+				return all;
 			}
 		}
 		return null;
 	}
-	
-	public boolean updateEmployeer(User employee) {
-		return ud.updateEmployee(employee);
-		
-	}
-	
-	public User login(String username, String password) throws LoginException {
-		List<User> employees = ud.getAllEmployee();
-		for(User i : employees) {
-			if (i.getUsername().equals(username)&& i.getPassword().equals(password)) {
-				return i;
-				}
-			}
-		throw new LoginException();
-		}
 
-	public User getEmployeeById(int id) {
-		// write method for retrieving employee by id
-		return null;
+	public boolean updateUser(User u) {
+		return cd.edit(u);
 	}
-
 }

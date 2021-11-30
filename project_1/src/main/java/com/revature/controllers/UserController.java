@@ -2,7 +2,7 @@ package com.revature.controllers;
 
 import java.util.List;
 
-import com.revature.models.Role;
+import com.revature.exceptions.EmployeeExistsException;
 import com.revature.models.User;
 import com.revature.services.AuthServices;
 import com.revature.services.UserServices;
@@ -16,73 +16,83 @@ public class UserController {
 	private static AuthServices as = new AuthServices();
 
 	public static void getUsers(Context ctx) {
-		String token = ctx.header("Authorization");				
-		if(as.checkPermission(token, Role.ADMIN, Role.MANAGER)) {
-			List<User> users = us.getUsers();
-			ctx.json(users);
-			ctx.status(HttpCode.OK);
-		} else if(as.checkPermission(token, Role.BASIC_EMPLOYEE)) {
-			getUserById(ctx);
-		} else {
+		String token = ctx.header("Authorization");
+
+		if (!as.checkPermission(token)) {
 			ctx.status(HttpCode.UNAUTHORIZED);
 			return;
 		}
+		List<User> users = us.getUsers();
+		ctx.json(users);
+		ctx.status(HttpCode.OK);
 	}
 
 	public static void registerUser(Context ctx) {
-		/*
-		 * add employee requires an Employee Object with a name, username, password
-		 * 
-		 * HTTP request - version - headers - body - need to have name, username,
-		 * password - url - localhost:8080/employees - http verb/method... - POST
-		 */
-
-		/*
-		 * Object mapper converts JSON object to Java Object mapped to the Employee
-		 * class - fields the the JSON object that match fields in the Employee java
-		 * class will be mapped accordingly
-		 */
-		int userId = us.addUser(ctx.bodyAsClass(User.class)); // should return new employee id																			// successful, or null otherwise
-		if (userId == -1) {
+		User newUser = null;
+		try {
+			newUser = us.getUserById(us.addUser(ctx.bodyAsClass(User.class)));
+		} catch (EmployeeExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (newUser == null) {
 			ctx.status(HttpCode.BAD_REQUEST);
 		} else {
 			ctx.status(HttpCode.CREATED);
 		}
-
 	}
 
 	public static void getUserById(Context ctx) {
-		int id = Integer.parseInt(ctx.queryParam("id"));
+		// pathParam("nameOfPathParam");
+
+		int id = Integer.parseInt(ctx.pathParam("id"));
+
 		User u = us.getUserById(id);
+
 		if (u != null) {
 			ctx.json(u);
 			ctx.status(HttpCode.OK);
 		} else {
+//			ctx.status(404);
 			ctx.status(HttpCode.NOT_FOUND);
 		}
 	}
 
-	public static void getByUsername(Context ctx) {
-		String body = ctx.body();
-		User u = us.getByUsername(body);
-		if (u != null) {
-			ctx.json(u);
+	public static void updateUserInfo(Context ctx) {
+
+		int id = Integer.parseInt(ctx.pathParam("id"));
+
+		User u = ctx.bodyAsClass(User.class);
+
+		u.setId(id);
+
+		if (us.updateEmployee(u)) {
 			ctx.status(HttpCode.OK);
 		} else {
-			ctx.json("fail");
-			ctx.status(HttpCode.NOT_FOUND);
+			ctx.status(400);
+		}
+	}
+	
+	public static void updateUserInfoManager(Context ctx) {
+
+		String token = ctx.header("Authorization");
+
+		if (!as.checkPermission(token)) {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			return;
+		}
+
+		int id = Integer.parseInt(ctx.pathParam("id"));
+
+		User u = ctx.bodyAsClass(User.class);
+
+		u.setId(id);
+
+		if (us.updateUser(u)) {
+			ctx.status(HttpCode.OK);
+		} else {
+			ctx.status(400);
 		}
 	}
 
-	public static void updateUser(Context ctx) {
-		User updated = ctx.bodyAsClass(User.class);
-		System.out.println(updated.getId());
-		User stale = us.getUserById(updated.getId());
-		updated.setManager(stale.getManager());
-		if(us.updateUser(updated) <= 0){
-			ctx.status(HttpCode.BAD_REQUEST);
-		} else {
-			ctx.status(HttpCode.OK);
-		}
-	}
 }

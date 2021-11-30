@@ -37,7 +37,7 @@ public class ReimbursementPostgres implements ReimbursementDao{
 				int typeId = rs.getInt("REMI_TYPE_ID");
 				
 				
-				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, description, description, new User(author), new User(resolver), new Status(statusId), new Type(typeId));
+				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, description, new User(author), new User(resolver), new Status(statusId), new Type(typeId));
 				Reimbs.add(newReib);
 			}
 		} catch (IOException | SQLException e) {
@@ -57,13 +57,6 @@ public class ReimbursementPostgres implements ReimbursementDao{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-	public boolean update(Reimbursement o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	
 	public List<Reimbursement> getAllByUserId() {
 		// TODO Auto-generated method stub
@@ -125,19 +118,35 @@ public class ReimbursementPostgres implements ReimbursementDao{
 	}
 
 	@Override
-	public List<Reimbursement> getAllReimb() {
+	public int add(Reimbursement t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int update(Reimbursement t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<Reimbursement> getByStatusId(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Reimbursement getReimbById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public Reimbursement addReimb(Reimbursement reimb) {
+	public List<Reimbursement> getByAuthorId(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
