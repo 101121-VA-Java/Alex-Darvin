@@ -44,14 +44,14 @@ public class Driver {
 				// use brackets to indicate path param name
 				// /users/{id}
 				path("{id}", () -> {
-					put(UserController::updateUser);
+					put(UserController::updateUserInfo);
 				});
 			});
+				path("auth", () -> {
+					post(AuthController::login);
+			});
 		});
-			// /auth
-		path("auth", () ->{
-			post(AuthController::login);
-		});
+		
 	}
 
 }

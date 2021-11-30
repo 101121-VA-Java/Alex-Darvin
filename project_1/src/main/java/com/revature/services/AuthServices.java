@@ -27,7 +27,7 @@ public class AuthServices {
 		String token = null;
 
 		// retrieves a user based on username passed in
-		User principal = ud.getUserByUsername(username);
+		User principal = ud.getByUsername(username);
 
 		if (principal != null && principal.getPassword().equals(password)) {
 			/*
@@ -60,11 +60,11 @@ public class AuthServices {
 		// retrieve user id
 		int token_id = Integer.parseInt(info[0]);
 		// retrieve user role
-		Role token_role = Role.valueOf(info[1]);
+		int token_role = Integer.parseInt(info[1]);
 		
 		User principal = ud.getUserById(token_id);
 		
-		if(principal != null && token_role.equals(principal.getRole()) 	// Authentication of user: make sure user is logged in
+		if (principal != null && token_role == principal.getRole().getRoleId()	// Authentication of user: make sure user is logged in
 				&& Arrays.asList(allowedRoles).contains(token_role)) {	// Authorization of user: make sure user has the permissions to use the functionality
 			return true;
 		}

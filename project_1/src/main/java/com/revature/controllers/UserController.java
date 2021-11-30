@@ -66,7 +66,7 @@ public class UserController {
 
 		u.setId(id);
 
-		if (us.updateEmployee(u)) {
+		if (us.updateUser(u)) {
 			ctx.status(HttpCode.OK);
 		} else {
 			ctx.status(400);

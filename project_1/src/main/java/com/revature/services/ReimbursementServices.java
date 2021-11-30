@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.revature.models.Reimbursement;
 import com.revature.models.Status;
+import com.revature.models.User;
 import com.revature.repositories.DaoFactory;
 import com.revature.repositories.ReimbursementDao;
 import com.revature.repositories.ReimbursementPostgres;
@@ -41,7 +42,7 @@ public class ReimbursementServices {
 	
 	public int addReimb(String token, Reimbursement r) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		r.setStatus(new Status(1));
+		r.setStatus(new Status(1, token));
 		r.setAuthor(new User(Integer.parseInt(token.split(":")[0])));
 		
 		r.setSubmit(timestamp);

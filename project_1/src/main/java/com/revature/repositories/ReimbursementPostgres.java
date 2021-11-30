@@ -37,7 +37,7 @@ public class ReimbursementPostgres implements ReimbursementDao{
 				int typeId = rs.getInt("REMI_TYPE_ID");
 				
 				
-				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, description, new User(author), new User(resolver), new Status(statusId), new Type(typeId));
+				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, description, new User(author), new User(resolver), new Status(statusId, description), new Type(typeId, description));
 				Reimbs.add(newReib);
 			}
 		} catch (IOException | SQLException e) {
@@ -125,20 +125,6 @@ public class ReimbursementPostgres implements ReimbursementDao{
 
 
 	@Override
-	public int update(Reimbursement t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public List<Reimbursement> getByStatusId(int id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -149,6 +135,20 @@ public class ReimbursementPostgres implements ReimbursementDao{
 	public List<Reimbursement> getByAuthorId(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public boolean edit(Reimbursement t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean deleteById(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

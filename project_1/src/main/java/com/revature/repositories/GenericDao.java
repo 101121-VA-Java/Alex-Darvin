@@ -3,8 +3,9 @@ package com.revature.repositories;
 import java.util.List;
 
 public interface GenericDao<T> {
-	int add(T t);
 	List<T> getAll();
-	int update(T t);
-	void delete(int id);
+	T getById(int id);
+	int add(T t);
+	boolean edit(T t);
+	boolean deleteById(int id);
 }

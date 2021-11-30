@@ -187,15 +187,10 @@ public class UserPostgres implements UserDao {
 		return false;
 	}
 
-	@Override
-	public int update(User t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public void delete(int id) {
+	public User getUserById(int token_id) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }
