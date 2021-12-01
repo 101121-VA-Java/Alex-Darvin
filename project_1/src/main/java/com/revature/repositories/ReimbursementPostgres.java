@@ -18,6 +18,8 @@ import com.revature.util.ConnectionUtil;
 public class ReimbursementPostgres implements ReimbursementDao{
 
 	public List<Reimbursement> getAll() {
+		//need to get author username from User table, need a join table statement
+		
 		String sql = "select * from ERS_REIMBURSEMENTS;";
 		List<Reimbursement> Reimbs = new ArrayList<>();
 		
@@ -37,8 +39,8 @@ public class ReimbursementPostgres implements ReimbursementDao{
 				int typeId = rs.getInt("REMI_TYPE_ID");
 				
 				
-				Reimbursement newReib = new Reimbursement(id, amount, submitted, resolved, description, new User(author), new User(resolver), new Status(statusId, description), new Type(typeId, description));
-				Reimbs.add(newReib);
+				Reimbursement newReimb = new Reimbursement(id, amount, submitted, resolved, description, new User(author), new User(resolver), new Status(statusId, description), new Type(typeId, description));
+				Reimbs.add(newReimb);
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
