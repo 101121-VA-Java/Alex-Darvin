@@ -13,7 +13,6 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -29,65 +28,75 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="login.html"
-              >Back to login<span class="sr-only">(current)</span></a
+            <a class="nav-link" href="employee_dash.html"
+              >Homepage <span class="sr-only">(current)</span></a
+            >
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="employee_profile.html">See Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="employee_update.html">Update Profile</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="logout-button"
+              onclick="logout()"
+              tabindex="-1"
+              aria-disabled="true"
+              >Logout</a
             >
           </li>
         </ul>
       </div>
     </nav>
+    Please enter a new Reimbursment claim
     <form onsubmit="return false">
       <div class="form-group">
-        <label for="firstName">First Name</label>
+        <div class="form-group">
+          <label for="type">Choose type of claim</label>
+          <select class="form-control" id="type">
+            <option>Lodging</option>
+            <option>Travel</option>
+            <option>Food</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="reimAmount">How Much Do You Need To Be Reimbursed?</label>
         <input
           type="text"
           class="form-control"
-          id="firstName"
-          placeholder="Enter First Name"
+          id="reimAmount"
+          placeholder="$00.00"
         />
       </div>
       <div class="form-group">
-        <label for="lastName">Last Name</label>
+        <label for="descrip">What Is The Reason For This Claim?</label>
         <input
           type="text"
           class="form-control"
-          id="lastName"
-          placeholder="Enter Last Name"
+          id="descrip"
+          placeholder="Type reason here..."
         />
       </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          placeholder="Enter Username"
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Password"
-        />
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          class="form-control"
-          id="email"
-          aria-describedby="emailHelp"
-          placeholder="Enter Email"
-        />
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
-      </div>
-      <button onclick="register()" type="submit" class="btn btn-primary">
-        Register New Employee
+      <button onclick="newClaim()" type="submit" class="btn btn-primary">
+        Submit
       </button>
     </form>
     <div id="error-div"></div>
@@ -106,7 +115,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <!-- <script src="../jsFiles/script.js"></script> -->
-    <script src="/p1-java/jsFiles/script.js"></script>
+    <script src="../jsFiles/script.js"></script>
   </body>
 </html>

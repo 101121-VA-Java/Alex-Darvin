@@ -11,5 +11,5 @@ document.getElementById('logout-button').addEventListener('click', logout);
 
 function logout(){
    sessionStorage.clear();
-   window.location.href = "views/login.html";
+   window.location.href = "login.html";
 }

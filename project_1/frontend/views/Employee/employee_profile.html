@@ -11,9 +11,8 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body onload="getUserProfile()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -29,67 +28,59 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="login.html"
-              >Back to login<span class="sr-only">(current)</span></a
+            <a class="nav-link" onclick="redirect()"
+              >Homepage <span class="sr-only">(current)</span></a
+            >
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="employee_profile.html">See Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="employee_update.html">Update Profile</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="logout-button"
+              onclick="logout()"
+              tabindex="-1"
+              aria-disabled="true"
+              >Logout</a
             >
           </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
       </div>
     </nav>
-    <form onsubmit="return false">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="firstName"
-          placeholder="Enter First Name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="lastName"
-          placeholder="Enter Last Name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          placeholder="Enter Username"
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Password"
-        />
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          class="form-control"
-          id="email"
-          aria-describedby="emailHelp"
-          placeholder="Enter Email"
-        />
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
-      </div>
-      <button onclick="register()" type="submit" class="btn btn-primary">
-        Register New Employee
-      </button>
-    </form>
+    Profile
+    <div>Name: <span id="firstName"></span> <span id="lastName"></span></div>
+    <div>Username: <span id="username"></span></div>
+    <!-- <div>Password: <span id="password"></span></div> -->
+    <div>Email: <span id="email"></span></div>
+    <div>Role: <span id="role"></span></div>
     <div id="error-div"></div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -106,7 +97,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <!-- <script src="../jsFiles/script.js"></script> -->
-    <script src="/p1-java/jsFiles/script.js"></script>
+    <script src="../jsFiles/script.js"></script>
   </body>
 </html>
