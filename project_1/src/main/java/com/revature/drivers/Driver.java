@@ -6,6 +6,7 @@ import static io.javalin.apibuilder.ApiBuilder.post;
 import static io.javalin.apibuilder.ApiBuilder.put;
 
 import com.revature.controllers.AuthController;
+import com.revature.controllers.ReimbursementController;
 import com.revature.controllers.UserController;
 
 import io.javalin.Javalin;
@@ -24,7 +25,7 @@ public class Driver {
 			 */
 			config.defaultContentType = "application/json";
 		});
-		app.start();
+		app.start(8080);
 
 		/*
 		 * Headers to tell the browser that the Authorization header that we're using for our "token" 
@@ -36,19 +37,45 @@ public class Driver {
 		});
 		
 		app.routes(() -> {
-			// /users
 			path("users", () -> {
-				get(UserController::getUsers);
 				post(UserController::registerUser);
+				get(UserController::getUsers);
 				
-				// use brackets to indicate path param name
-				// /users/{id}
+
 				path("{id}", () -> {
+					get(UserController::getUserById);
 					put(UserController::updateUserInfo);
 				});
 			});
-				path("auth", () -> {
-					post(AuthController::login);
+			
+			path("reimbursements", () -> {
+				post(ReimbursementController::addReimb);
+				get(ReimbursementController::getReimbursements);
+				
+				path("{id}", () -> {
+					get(ReimbursementController::getReimbById);
+					put(ReimbursementController::updateReimb);
+
+
+				});
+				
+				path("author", () -> {
+					path("{id}", () -> {
+						get(ReimbursementController::getReimbByAuthorId);
+						put(ReimbursementController::updateReimb);
+					});
+				});
+				
+				path("status", () -> {
+					path("{id}", () -> {
+						get(ReimbursementController::getReimbByStatusId);
+						put(ReimbursementController::updateReimb);
+					});
+				});
+			});
+			
+			path("auth", () -> {
+				post(AuthController::login);
 			});
 		});
 		

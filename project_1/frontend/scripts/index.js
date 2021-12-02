@@ -1,3 +1,6 @@
+document.getElementById("login").addEventListener("click", login);
+
+let api1 = "http://localhost:8080/auth";
 // retrieving token from session storage if it exists
 let token = sessionStorage.getItem("token");
 

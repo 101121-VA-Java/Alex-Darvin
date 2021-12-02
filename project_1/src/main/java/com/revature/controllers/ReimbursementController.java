@@ -15,12 +15,12 @@ public class ReimbursementController {
 	private static AuthServices as = new AuthServices();
 
 	public static void getReimbursements(Context ctx) {
-//		String token = ctx.header("Authorization");
-//
-//		if (!as.checkPermission(token, 2)) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//			return;
-//		}
+		String token = ctx.header("Authorization");
+
+		if (!as.checkPermission(token)) {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			return;
+		}
 		List<Reimbursement> r = rs.getReimbursements();
 		ctx.json(r);
 		ctx.status(HttpCode.OK);

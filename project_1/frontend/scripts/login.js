@@ -1,4 +1,4 @@
-document.getElementById("submitButton").addEventListener("click", login);
+document.getElementById("login").addEventListener("click", login);
 
 let api1 = "http://localhost:8080/auth";
 
