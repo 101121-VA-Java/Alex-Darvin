@@ -9,7 +9,7 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     </head>
 
-    <body onload="getUserProfile()">
+    <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
+                        <!-- allow for either manager homepage or employee homepage depending on the token -->
                         <a class="nav-link" onclick="redirect()">Homepage <span class="sr-only">(current)</span></a>
                     </li>
 
@@ -40,18 +41,49 @@
                 </ul>
             </div>
         </nav>
-        <div>Profile</div>
-        <br>
-        <div>Name: <span id="firstName"></span> <span id="lastName"></span></div>
-        <br>
-        <div>Username: <span id="username"></span></div>
-        <br>
-        <!-- <div>Password: <span id="password"></span></div> -->
-        <div>Email: <span id="email"></span></div>
-        <br>
-        <div>Role: <span id="role"></span></div>
-        <br>
-        <div id="error-div"></div>
+        <div id="main-content">
+            <form id="register-form" onsubmit="return false">
+                Update your information
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" aria-describedby="userNameHelp"
+                        placeholder="Please enter your new username here" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password"
+                        placeholder="Please enter your new password here" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                        placeholder="Plese enter your new email here" />
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp"
+                        placeholder="Please enter your first name here" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp"
+                        placeholder="Please enter your last name here" />
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="role">Choose Role</label>
+                        <select class="form-control" id="role">
+                            <option>Finance Manager(FM)</option>
+                            <option>Employee(E)</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <button class="btn btn-primary" onclick="updateUserProfile()">
+                Update
+            </button>
+            <div id="error-div"></div>
+        </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -61,7 +93,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-        <script src="../jsFiles/script.js"></script>
+        <script src="/p1-java/jsFiles/script.js"></script>
     </body>
 
 </html>

@@ -9,7 +9,16 @@ if (!token) {
 // targets logout button
 document.getElementById('logout-button').addEventListener('click', logout);
 
-function logout(){
+function logout() {
    sessionStorage.clear();
    window.location.href = "login.html";
+}
+
+function redirect() {
+   let authToken = sessionStorage.getItem("token");
+   if (authToken.split(":")[1] === "1") {
+      window.location.href = "employee_dash.html";
+   } else {
+      window.location.href = "manager_dash.html";
+   }
 }
