@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Reimbursement;
@@ -69,24 +70,56 @@ public class ReimbursementController {
 	}
 
 	public static void getReimbByStatusId(Context ctx) {
-		String token = ctx.header("Authorization");
 
-		if (!as.checkPermission(token, new Role(1))) {
-			ctx.status(HttpCode.UNAUTHORIZED);
-			return;
-		}
-
-		int id = Integer.parseInt(ctx.pathParam("id"));
-		List<Reimbursement> r = rs.getReimbByStatusId(id);
-		if (r != null) {
-			ctx.json(r);
+		String authorId = ctx.queryParam("author_id");
+		List<Reimbursement> r = null;
+		List<Reimbursement> statusAndAuthorList = new ArrayList<>();
+//		System.out.println("this is a test: " + authorId);
+		Integer statusId = 0;
+		if(null!=ctx.pathParam("id"))
+			statusId = Integer.parseInt(ctx.pathParam("id"));
+		
+		if (authorId != null) {
+			int authorNumber = Integer.parseInt(authorId.trim());
+			r = rs.getReimbByAuthorId(authorNumber);
+			
+			if(null == statusId || statusId.compareTo(0) == 0)
+				statusAndAuthorList= getAllReimbursementData(r);
+			else
+				statusAndAuthorList= getAllReimbursementDataByStatus(r,statusId);
+			
+			ctx.json(statusAndAuthorList);
 			ctx.status(HttpCode.OK);
+//			System.out.println("this is a test2: " + r);
 		} else {
-//			ctx.status(404);
-			ctx.status(HttpCode.NOT_FOUND);
+			r = rs.getReimbByStatusId(statusId);
+			if (r != null) {
+				ctx.json(r);
+				ctx.status(HttpCode.OK);
+			} else {
+				ctx.status(HttpCode.NOT_FOUND);
+			}
 		}
 	}
+	
+	public static List<Reimbursement> getAllReimbursementData(List<Reimbursement> r){
+		List<Reimbursement> statusAndAuthorList = new ArrayList<>();
+		for (Reimbursement statusAndAuthor : r) {
+			statusAndAuthorList.add(statusAndAuthor);
+		}
+		return statusAndAuthorList;
+	}
 
+    public static List<Reimbursement> getAllReimbursementDataByStatus(List<Reimbursement> r,Integer statusId){
+    	List<Reimbursement> statusAndAuthorList = new ArrayList<>();
+    	for (Reimbursement statusAndAuthor : r) {
+			if (statusAndAuthor.getStatus().getId() == statusId) {
+				statusAndAuthorList.add(statusAndAuthor);
+			}
+		}	
+    	return statusAndAuthorList;
+	}
+	
 	public static void addReimb(Context ctx) {
 		String token = ctx.header("Authorization");
 		Reimbursement newReimb = null;

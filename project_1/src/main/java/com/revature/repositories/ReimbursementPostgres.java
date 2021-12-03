@@ -103,7 +103,32 @@ public class ReimbursementPostgres implements ReimbursementDao{
 	
 	public List<Reimbursement> getAllByUserId() {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from ERS_REIMBURSEMENTS where reimb_author = ?;";
+		List<Reimbursement> Reimbs = new ArrayList<>();
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			
+			while(rs.next()) {
+				int id = rs.getInt("reimb_id");
+				double amount = rs.getDouble("reimb_amount");
+				Timestamp submitted = rs.getTimestamp("reimb_submitted");
+				Timestamp resolved = rs.getTimestamp("reimb_resolved");
+				String description = rs.getString("reimb_description");
+				int author = rs.getInt("reimb_author");
+				int resolver = rs.getInt("reimb_resolver");
+				int statusId = rs.getInt("reimb_status_id");
+				int typeId = rs.getInt("reimb_type_id");
+				
+				
+				Reimbursement newReimb = new Reimbursement(id, amount, submitted, resolved, description, new User(author), new User(resolver), new Status(statusId, description), new Type(typeId, description));
+				Reimbs.add(newReimb);
+			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		} 
+		return Reimbs;
 	}
 
 	
@@ -246,14 +271,79 @@ public class ReimbursementPostgres implements ReimbursementDao{
 
 	@Override
 	public List<Reimbursement> getByAuthorId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select reimb_id, reimb_amount, reimb_submitted, reimb_resolved,"
+				+ " reimb_description, U.ers_users_id author_id, U.ers_username author,"
+				+ " M.ers_users_id resolver_id,  M.ers_username resolver, S.reimb_status_id,"
+				+ " S.reimb_status Status, T.reimb_type_id, T.reimb_type R_Type\n"
+				+ "	from ers_reimbursement R\n"
+				+ "	left join ers_users U on R.reimb_author = U.ers_users_id \n"
+				+ "	left join ers_users M on R.reimb_resolver = M.ers_users_id\n"
+				+ "	left join ers_reimbursement_status S on R.reimb_status_id = S.reimb_status_id\n"
+				+ "	left join ers_reimbursement_type T on R.reimb_type_id = T.reimb_type_id where reimb_author = ?;";
+		List<Reimbursement> Reimbs = new ArrayList<>();
+
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				int reimb_id = rs.getInt("reimb_id");
+				double amount = rs.getDouble("reimb_amount");
+				Timestamp submitted = rs.getTimestamp("reimb_submitted");
+				Timestamp resolved = rs.getTimestamp("reimb_resolved");
+				String descrip = rs.getString("reimb_description");
+				int authorId = rs.getInt("author_id");
+				String author = rs.getString("author");
+				int resolverId = rs.getInt("resolver_id");
+				String resolver = rs.getString("resolver");
+				int statusId = rs.getInt("reimb_status_id");
+				String status = rs.getString("status");
+				int typeId = rs.getInt("reimb_type_id");
+				String type = rs.getString("r_type");
+
+				Reimbursement newReib = new Reimbursement(reimb_id, amount, submitted, resolved, descrip,
+						new User(authorId, author), new User(resolverId, resolver), new Status(statusId, status), new Type(typeId, type));
+				Reimbs.add(newReib);
+			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		return Reimbs;
 	}
 
 
 	@Override
-	public boolean edit(Reimbursement t) {
+	public boolean edit(Reimbursement rs) {
 		// TODO Auto-generated method stub
+		String sql = "update ers_reimbursement set reimb_amount = ?, reimb_submitted = ?, "
+				+ "reimb_resolved = ?, reimb_description = ?, reimb_author = ?, reimb_resolver = ?, "
+				+ "reimb_status_id = ?, reimb_type_id = ? where reimb_id = ?;";
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			int rowsChanged = -1;
+			ps.setDouble(1, rs.getReimAmount());
+			ps.setTimestamp(2, rs.getSubmit());
+			ps.setTimestamp(3, rs.getResolve());
+			ps.setString(4, rs.getDescrip());
+			ps.setInt(5, rs.getAuthor().getId());
+			ps.setInt(6, rs.getResolver().getId());
+			ps.setInt(7, rs.getStatus().getId());
+			ps.setInt(8, rs.getType().getId());
+			ps.setInt(9, rs.getReimId());
+
+			rowsChanged = ps.executeUpdate();
+
+			if (rowsChanged > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException | IOException c1) {
+			c1.printStackTrace();
+		}
 		return false;
 	}
 
