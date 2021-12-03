@@ -70,5 +70,14 @@ function updateUserProfile() {
 
 function logout() {
     sessionStorage.clear();
-    window.location.href = "login.html";
+    window.location.href = "../login.html";
 }
+
+function redirect() {
+    let authToken = sessionStorage.getItem("token");
+    if (authToken.split(":")[1] === "1") {
+      window.location.href = "../Employee/employee_dash.html";
+    } else {
+      window.location.href = "../Manager/manager_dash.html";
+    }
+  }

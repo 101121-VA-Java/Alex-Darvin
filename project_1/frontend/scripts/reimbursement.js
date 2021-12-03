@@ -104,7 +104,7 @@ function getAllApproved() {
     xhr.send();
 }
 
-function getAllRequestsByStatusAndAuthorP() {
+function getAllPendingByStatusAndAuthor() {
     let xhr = new XMLHttpRequest();
     xhr.open(
         "GET",
@@ -147,7 +147,7 @@ function printReims(reims) {
     });
 }
 
-function printPReims(reims) {
+function printPending(reims) {
     reims.forEach((row) => {
         const tr = document.createElement("tr");
         const td1 = document.createElement("td");
@@ -188,4 +188,9 @@ function timeStampFix(time) {
       formattedDate = formattedDate + " " + formattedTime;
     }
     return formattedDate;
+}
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = "login.html";
 }

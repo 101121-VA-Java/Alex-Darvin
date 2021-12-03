@@ -29,10 +29,10 @@ function login() {
             // window.location.href="../htmlFiles/login.html";
             let x = sessionStorage.token;
             if (x.split(":")[1] === "1") {
-                window.location.href = "employee_dash.html";
+                window.location.href = "../views/Employee/employee_dash.html";
                 console.log("You are signed in as an employee!!!");
             } else if (x.split(":")[1] === "2") {
-                window.location.href = "manager_dash.html";
+                window.location.href = "../views/Manager/manager_dash.html";
                 console.log("You are signed in as a manager!!!");
             } else {
                 document.getElementById("error-div").innerHTML = "Unable to login.";

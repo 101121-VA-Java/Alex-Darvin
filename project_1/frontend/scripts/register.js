@@ -11,8 +11,6 @@ function register() {
 
     let newEmployee = { firstName, lastName, username, password, email };
 
-    //add other stuff
-
     let xhr = new XMLHttpRequest();
 
     xhr.open("POST", "http://localhost:8080/users");
