@@ -218,7 +218,7 @@ public class ReimbursementPostgres implements ReimbursementDao{
 
 
 	@Override
-	public List<Reimbursement> getByStatusId(int id) {
+	public List<Reimbursement> getByStatusId(int id,String filterName,String filterValue) {
 		System.out.println("status_id: " + id);
 		// TODO Auto-generated method stub
 		String sql = "select a.*, u.ers_username as authname, u1.ers_username as resolvername, s.reimb_status, t.reimb_type from ers_reimbursement as a "
@@ -226,12 +226,21 @@ public class ReimbursementPostgres implements ReimbursementDao{
 				+ "left join ers_users as u1 on u1.ers_users_id = a.reimb_resolver "
 				+ "left join ers_reimbursement_status as s on s.reimb_status_id = a.reimb_status_id "
 				+ "left join ers_reimbursement_type as t on t.reimb_type_id = a.reimb_type_id "
-				+ "where a.reimb_status_id = ?;";
+				+ "where a.reimb_status_id = ?";
+		if(null!=filterName && !"".equalsIgnoreCase(filterName)
+				&& null!=filterValue && !"".equalsIgnoreCase(filterValue)) {
+			sql +=" and u.ers_username = ?";
+		}
+		sql+=";";
 		List<Reimbursement> r = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setInt(1, id);
+			if(null!=filterName && !"".equalsIgnoreCase(filterName)
+					&& null!=filterValue && !"".equalsIgnoreCase(filterValue)) {
+				ps.setString(2, filterValue);
+			}
 
 			ResultSet rs = ps.executeQuery();
 			

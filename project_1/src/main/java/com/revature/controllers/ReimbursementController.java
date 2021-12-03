@@ -72,6 +72,10 @@ public class ReimbursementController {
 	public static void getReimbByStatusId(Context ctx) {
 
 		String authorId = ctx.queryParam("author_id");
+		
+		String filter=ctx.queryParam("filterBy");
+		String filterValue=ctx.queryParam("filterValue");
+		
 		List<Reimbursement> r = null;
 		List<Reimbursement> statusAndAuthorList = new ArrayList<>();
 //		System.out.println("this is a test: " + authorId);
@@ -92,7 +96,7 @@ public class ReimbursementController {
 			ctx.status(HttpCode.OK);
 //			System.out.println("this is a test2: " + r);
 		} else {
-			r = rs.getReimbByStatusId(statusId);
+			r = rs.getReimbByStatusId(statusId,filter,filterValue);
 			if (r != null) {
 				ctx.json(r);
 				ctx.status(HttpCode.OK);

@@ -120,7 +120,7 @@ function logout() {
 function redirect() {
     let authToken = sessionStorage.getItem("token");
     if (authToken.split(":")[1] === "1") {
-      window.location.href = "../employee_dash.html";
+      window.location.href = "../Employee/employee_dash.html";
     } else {
       window.location.href = "../Manager/manager_dash.html";
     }

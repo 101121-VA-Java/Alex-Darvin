@@ -20,7 +20,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <!-- allow for either manager homepage or employee homepage depending on the token -->
-          <a class="nav-link" href="employee_dash.html">Homepage <span class="sr-only">(current)</span></a>
+          <a class="nav-link" onclick="redirect()">Homepage <span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item dropdown">
@@ -29,7 +29,7 @@
             Profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="employee_profile.html">See Profile</a>
+            <a class="dropdown-item" onclick="redirect()">See Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="employee_update.html">Update Profile</a>
           </div>

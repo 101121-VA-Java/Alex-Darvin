@@ -35,8 +35,8 @@ public class ReimbursementServices {
 		return r;
 	}
 	
-	public List<Reimbursement> getReimbByStatusId(int statusId) {
-		List<Reimbursement> r = rd.getByStatusId(statusId);
+	public List<Reimbursement> getReimbByStatusId(int statusId,String filterName,String filterValue) {
+		List<Reimbursement> r = rd.getByStatusId(statusId,filterName,filterValue);
 		return r;
 	}
 	

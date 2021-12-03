@@ -64,12 +64,12 @@ function getAllPendingByEmployee() {
     xhr.send();
 }
 
-function getAllRequestsFromAuthor() {
+function getAllRequestsFromAuthor(status) {
     clearAll();
     let xhr = new XMLHttpRequest();
     xhr.open(
         "GET",
-        `http://localhost:8080/reimbursements/status/0?author_id=${sessionStorage.token.split(":")[0]}`
+        `http://localhost:8080/reimbursements/status/`+status+`?author_id=${sessionStorage.token.split(":")[0]}`
     );
     xhr.setRequestHeader("Authorization", sessionStorage.token);
     xhr.onreadystatechange = function () {
@@ -87,8 +87,10 @@ function getAllRequestsFromAuthor() {
 
 function getAllPending() {
     clearAll();
+
+    let filterValue = document.getElementById("searchData").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:8080/reimbursements/status/1`);
+    xhr.open("GET", `http://localhost:8080/reimbursements/status/1?filterBy=Author&filterValue=`+filterValue);
 
     xhr.setRequestHeader("Authorization", `Bearer ${sessionStorage.token}`);
     xhr.onreadystatechange = function () {
@@ -106,8 +108,32 @@ function getAllPending() {
 
 function getAllDenied() {
     clearAll();
+    let filterValue = document.getElementById("searchData").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:8080/reimbursements/status/3`);
+    xhr.open("GET", `http://localhost:8080/reimbursements/status/3?filterBy=Author&filterValue=`+filterValue);
+
+    xhr.setRequestHeader("Authorization", sessionStorage.token);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+            let reims = xhr.response;
+            reims = JSON.parse(reims);
+            printResolved(reims);
+        } else if (xhr.readyState === 4) {
+            // provide user with feedback of failure to login
+            document.getElementById("error-div").innerHTML =
+                "Unable to find Reimbursements.";
+        }
+    };
+    xhr.send();
+}
+
+function allReimbData(status){
+    let filterValue = "";
+    if(document.getElementById("searchData")){
+        filterValue = document.getElementById("searchData").value;
+    }
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `http://localhost:8080/reimbursements/status/`+status+`?filterBy=Author&filterValue=`+filterValue);
 
     xhr.setRequestHeader("Authorization", sessionStorage.token);
     xhr.onreadystatechange = function () {
@@ -126,22 +152,7 @@ function getAllDenied() {
 
 function getAllApproved() {
     clearAll();
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:8080/reimbursements/status/2`);
-
-    xhr.setRequestHeader("Authorization", sessionStorage.token);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
-            let reims = xhr.response;
-            reims = JSON.parse(reims);
-            printResolved(reims);
-        } else if (xhr.readyState === 4) {
-            // provide user with feedback of failure to login
-            document.getElementById("error-div").innerHTML =
-                "Unable to find Reimbursements.";
-        }
-    };
-    xhr.send();
+    allReimbData('2');
 }
 
 function getAllPendingByStatusAndAuthor() {
@@ -171,7 +182,7 @@ function printEmployeeReims(reims) {
         tr.appendChild(td2);
         td3.textContent = timeStampFix(row.submit);
         tr.appendChild(td3);
-        td4.textContent = row.resolve;
+        td4.textContent = timeStampFix(row.resolve);
         tr.appendChild(td4);
         td5.textContent = row.descrip;
         tr.appendChild(td5);
@@ -364,6 +375,8 @@ function updateRequests(vstatus) {
     xhr.open("PUT", `http://localhost:8080/reimbursements/`+reimId);
     xhr.setRequestHeader("Authorization", sessionStorage.token);
     xhr.send(JSON.stringify(updatedReim));
+    clearAll();
+    getAllPending();
 }
 
 function filterEmployeeRequests() {
