@@ -30,8 +30,8 @@ function register() {
 
             // navigate to a different view (ie: homepage)
             // window.location.href="../htmlFiles/login.html";
-            let x = sessionStorage.token;
-            window.location.href = "employee_dash.html";
+            let x = sessionStorage.getItem("token");
+            window.location.href = "Employee/employee_dash.html";
             console.log("You signed in as an employee!!!");
         } else if (xhr.readyState === 4) {
             // provide user with feedback of failure to login

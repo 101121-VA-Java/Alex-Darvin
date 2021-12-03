@@ -1,5 +1,5 @@
-document.getElementById("login").addEventListener("click", login);
 
+document.getElementById("button").addEventListener("click", login);
 let api1 = "http://localhost:8080/auth";
 
 function login() {
@@ -30,10 +30,10 @@ function login() {
             let x = sessionStorage.token;
             if (x.split(":")[1] === "1") {
                 window.location.href = "employee_dash.html";
-                console.log("You are in as an employee!!!");
+                console.log("You are signed in as an employee!!!");
             } else if (x.split(":")[1] === "2") {
                 window.location.href = "manager_dash.html";
-                console.log("You are in as a manager!!!");
+                console.log("You are signed in as a manager!!!");
             } else {
                 document.getElementById("error-div").innerHTML = "Unable to login.";
             }

@@ -67,3 +67,8 @@ function updateUserProfile() {
     xhr.setRequestHeader("Authorization", sessionStorage.token);
     xhr.send(JSON.stringify(updatedEmployee));
 }
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = "login.html";
+}

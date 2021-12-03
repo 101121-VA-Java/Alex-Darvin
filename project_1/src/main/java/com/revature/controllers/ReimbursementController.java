@@ -3,6 +3,7 @@ package com.revature.controllers;
 import java.util.List;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.Role;
 import com.revature.services.AuthServices;
 import com.revature.services.ReimbursementServices;
 
@@ -16,8 +17,10 @@ public class ReimbursementController {
 
 	public static void getReimbursements(Context ctx) {
 		String token = ctx.header("Authorization");
+		
+		System.out.println("getReimbursements");
 
-		if (!as.checkPermission(token)) {
+		if (!as.checkPermission(token, new Role(1))) {
 			ctx.status(HttpCode.UNAUTHORIZED);
 			return;
 		}
@@ -68,13 +71,13 @@ public class ReimbursementController {
 	public static void getReimbByStatusId(Context ctx) {
 		String token = ctx.header("Authorization");
 
-		if (!as.checkPermission(token)) {
+		if (!as.checkPermission(token, new Role(1))) {
 			ctx.status(HttpCode.UNAUTHORIZED);
 			return;
 		}
 
 		int id = Integer.parseInt(ctx.pathParam("id"));
-		Reimbursement r = rs.getReimbById(id);
+		List<Reimbursement> r = rs.getReimbByStatusId(id);
 		if (r != null) {
 			ctx.json(r);
 			ctx.status(HttpCode.OK);

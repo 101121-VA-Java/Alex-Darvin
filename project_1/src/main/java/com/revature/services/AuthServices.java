@@ -35,7 +35,7 @@ public class AuthServices {
 			 *  	- based on this token, a user can be authenticated when making a request
 			 *  	- user-id:role
 			 */
-			token = principal.getId() + ":" + principal.getRole();
+			token = principal.getId() + ":" + principal.getRole().getRoleId();
 		}
 
 		return token;
@@ -47,7 +47,7 @@ public class AuthServices {
 	 * @return true if a user is authenticated and has permission, false otherwise
 	 */
 	public boolean checkPermission(String token, Role... allowedRoles) {
-		
+		System.out.println(token);
 		/*
 		 * Behavior to identify user from token
 		 */
@@ -62,12 +62,23 @@ public class AuthServices {
 		// retrieve user role
 		int token_role = Integer.parseInt(info[1]);
 		
-		User principal = ud.getUserById(token_id);
+		User principal = ud.getById(token_id);
+		
+		boolean allowed_role = allowedRoles.length < 1;
+		for(Role r : Arrays.asList(allowedRoles)) {
+			if(r.getRoleId() == token_role)  {
+				allowed_role = true;
+				break;
+			}
+		}
 		
 		if (principal != null && token_role == principal.getRole().getRoleId()	// Authentication of user: make sure user is logged in
-				&& Arrays.asList(allowedRoles).contains(token_role)) {	// Authorization of user: make sure user has the permissions to use the functionality
+				&& allowed_role) {	// Authorization of user: make sure user has the permissions to use the functionality
+			System.out.println("passed:");
 			return true;
 		}
+		
+		System.out.println("not passed: " + principal.getRole().getRoleId() + " - " + allowedRoles.length);
 		
 		return false;
 	}

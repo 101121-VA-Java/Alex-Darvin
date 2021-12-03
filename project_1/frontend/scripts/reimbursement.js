@@ -3,7 +3,7 @@ function newRequest() {
     document.getElementById("error-div").innerHTML = "";
 
     //retrieving user credentials
-    let reimAmount = document.getElementById("reimAmount").value;
+    let reimAmount = Number(document.getElementById("reimAmount").value);
     let descrip = document.getElementById("descrip").value;
     let type = document.getElementById("type").value;
     if (type === "Lodging") {
@@ -16,7 +16,7 @@ function newRequest() {
         type = 4;
     }
 
-    let newReim = { reimAmount, descrip, type };
+    let newReim = { reimAmount, descrip, type: {id: type, type: ''} };
 
     //add other stuff
 
@@ -41,7 +41,11 @@ function newRequest() {
     xhr.send(requestBody);
 }
 
-function getAllPReims() {
+function clearAll() {
+    tableBody.innerHTML = '';
+}
+function getAllPending() {
+    clearAll();
     let xhr = new XMLHttpRequest();
     xhr.open("GET", `http://localhost:8080/reimbursements/status/1`);
 
@@ -50,7 +54,7 @@ function getAllPReims() {
         if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
             let reims = xhr.response;
             reims = JSON.parse(reims);
-            printPReims(reims);
+            printReims(reims);
         } else if (xhr.readyState === 4) {
             // provide user with feedback of failure to login
             document.getElementById("error-div").innerHTML =
@@ -61,8 +65,9 @@ function getAllPReims() {
 }
 
 function getAllDenied() {
+    clearAll();
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:8080/reimbursements/status/2`);
+    xhr.open("GET", `http://localhost:8080/reimbursements/status/3`);
 
     xhr.setRequestHeader("Authorization", sessionStorage.token);
     xhr.onreadystatechange = function () {
@@ -80,8 +85,9 @@ function getAllDenied() {
 }
 
 function getAllApproved() {
+    clearAll();
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:8080/reimbursements/status/3`);
+    xhr.open("GET", `http://localhost:8080/reimbursements/status/2`);
 
     xhr.setRequestHeader("Authorization", sessionStorage.token);
     xhr.onreadystatechange = function () {
@@ -123,9 +129,9 @@ function printReims(reims) {
         tr.appendChild(td1);
         td2.textContent = row.reimAmount;
         tr.appendChild(td2);
-        td3.textContent = timeFix(row.submit);
+        td3.textContent = timeStampFix(row.submit);
         tr.appendChild(td3);
-        td4.textContent = timeFix(row.resolve);
+        td4.textContent = row.resolve;
         tr.appendChild(td4);
         td5.textContent = row.descrip;
         tr.appendChild(td5);
@@ -156,7 +162,7 @@ function printPReims(reims) {
         tr.appendChild(td1);
         td2.textContent = row.reimAmount;
         tr.appendChild(td2);
-        td3.textContent = timeFix(row.submit);
+        td3.textContent = timeStampFix(row.submit);
         tr.appendChild(td3);
         td4.textContent = row.descrip;
         tr.appendChild(td4);
@@ -169,4 +175,17 @@ function printPReims(reims) {
         $('<td>Select: <input type="checkbox" /></td>').appendTo(tr);
         tableBody.appendChild(tr);
     });
+}
+
+function timeStampFix(time) {
+    if (time != null) {
+      var d = new Date(time);
+      var formattedDate =
+        d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+      var hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+      var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+      var formattedTime = hours + ":" + minutes;
+      formattedDate = formattedDate + " " + formattedTime;
+    }
+    return formattedDate;
 }

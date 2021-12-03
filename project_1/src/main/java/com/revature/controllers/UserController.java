@@ -35,11 +35,15 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (newUser == null) {
+		
+		if (newUser == null) {			
 			ctx.status(HttpCode.BAD_REQUEST);
 		} else {
+			String token = newUser.getId() + ":" + newUser.getRole().getRoleId();
+			ctx.header("Authorization", token);
 			ctx.status(HttpCode.CREATED);
 		}
+		
 	}
 
 	public static void getUserById(Context ctx) {

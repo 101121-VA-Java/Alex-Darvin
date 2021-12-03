@@ -17,6 +17,12 @@ public class User {
 		super();
 		this.id = id;
 	}
+	
+	public User(int id, String username) {
+		super();
+		this.id = id;
+		this.username = username;
+	}
 
 	public User(String username) {
 		super();

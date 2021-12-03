@@ -31,6 +31,13 @@ public class Reimbursement {
 		this.status = status;
 		this.type = type;
 	}
+	
+	public Reimbursement(double amount, String description, Type type) {
+		super();
+		this.amount = amount;
+		this.description = description;
+		this.type = type;
+	}
 
 	public int getReimId() {
 		return id;
